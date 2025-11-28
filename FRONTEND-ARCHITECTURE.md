@@ -91,10 +91,14 @@ frontend/
 │   │   │   ├── Button.tsx
 │   │   │   ├── Input.tsx
 │   │   │   ├── Select.tsx
+│   │   │   ├── Dropdown.tsx        # Custom styled dropdown
 │   │   │   ├── Modal.tsx
 │   │   │   ├── Card.tsx
 │   │   │   ├── Badge.tsx
 │   │   │   ├── Spinner.tsx
+│   │   │   ├── ConfirmDialog.tsx
+│   │   │   ├── EmptyState.tsx
+│   │   │   ├── PageLoader.tsx
 │   │   │   └── index.ts
 │   │   │
 │   │   ├── forms/                  # Form components

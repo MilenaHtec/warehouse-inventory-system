@@ -9,11 +9,12 @@ A full-stack warehouse inventory management application built with Node.js, Expr
 
 ## Features
 
-- **Product Management** - Add, edit, delete, and search products
+- **Product Management** - Add, edit, delete, and search products with sorting options
 - **Category Organization** - Organize products into categories
 - **Inventory Tracking** - Track stock levels with increase/decrease operations
-- **Audit History** - Complete history of all inventory changes
+- **Audit History** - Complete history of all inventory changes per product
 - **Reports & Analytics** - Stock by category, low stock alerts, dashboard stats
+- **Real-time Dashboard** - Live statistics with automatic updates
 - **Modern UI** - Beautiful earthy color palette with responsive design
 
 ## Tech Stack
