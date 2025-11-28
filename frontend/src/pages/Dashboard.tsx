@@ -1,26 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
+import { Link } from 'react-router-dom';
 import { Package, FolderTree, AlertTriangle, TrendingUp } from 'lucide-react';
 import { Card, CardHeader, CardTitle, Badge, PageLoader } from '@/components/ui';
 import { PageHeader } from '@/components/layout';
-import { api } from '@/lib/api';
+import { useDashboardStats } from '@/hooks/useReports';
 import { formatCurrency, formatNumber } from '@/lib/utils';
 
-interface DashboardStats {
-  total_products: number;
-  total_categories: number;
-  total_stock: number;
-  total_value: number;
-  low_stock_count: number;
-}
-
 export function Dashboard() {
-  const { data, isLoading } = useQuery({
-    queryKey: ['dashboard-stats'],
-    queryFn: async () => {
-      const response = await api.get<{ success: boolean; data: DashboardStats }>('/reports/dashboard');
-      return response.data.data;
-    },
-  });
+  const { data, isLoading } = useDashboardStats();
 
   if (isLoading) {
     return <PageLoader />;
@@ -89,10 +75,10 @@ export function Dashboard() {
             <CardTitle>Quick Actions</CardTitle>
           </CardHeader>
           <div className="grid grid-cols-2 gap-3">
-            <QuickAction href="/products" label="Add Product" />
-            <QuickAction href="/categories" label="Add Category" />
-            <QuickAction href="/inventory" label="Update Stock" />
-            <QuickAction href="/reports" label="View Reports" />
+            <QuickAction to="/products" label="Add Product" />
+            <QuickAction to="/categories" label="Add Category" />
+            <QuickAction to="/inventory" label="Update Stock" />
+            <QuickAction to="/reports" label="View Reports" />
           </div>
         </Card>
       </div>
@@ -136,14 +122,13 @@ function StatCard({ title, value, icon, color, alert }: StatCardProps) {
   );
 }
 
-function QuickAction({ href, label }: { href: string; label: string }) {
+function QuickAction({ to, label }: { to: string; label: string }) {
   return (
-    <a
-      href={href}
+    <Link
+      to={to}
       className="p-3 bg-stone-50 rounded-lg text-sm font-medium text-stone-700 hover:bg-stone-100 transition-colors text-center"
     >
       {label}
-    </a>
+    </Link>
   );
 }
-

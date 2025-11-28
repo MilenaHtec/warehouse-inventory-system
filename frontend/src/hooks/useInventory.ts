@@ -5,6 +5,7 @@ import type { StockChangeDTO, StockAdjustDTO, InventoryHistoryFilters } from '@s
 
 const QUERY_KEY = ['inventory'];
 const PRODUCTS_KEY = ['products'];
+const REPORTS_KEY = ['reports'];
 
 export function useInventoryHistory(filters?: InventoryHistoryFilters) {
   return useQuery({
@@ -30,6 +31,7 @@ export function useIncreaseStock() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEY });
       queryClient.invalidateQueries({ queryKey: PRODUCTS_KEY });
+      queryClient.invalidateQueries({ queryKey: REPORTS_KEY });
       toast.success('Stock increased successfully');
     },
   });
@@ -44,6 +46,7 @@ export function useDecreaseStock() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEY });
       queryClient.invalidateQueries({ queryKey: PRODUCTS_KEY });
+      queryClient.invalidateQueries({ queryKey: REPORTS_KEY });
       toast.success('Stock decreased successfully');
     },
   });
@@ -58,8 +61,8 @@ export function useAdjustStock() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEY });
       queryClient.invalidateQueries({ queryKey: PRODUCTS_KEY });
+      queryClient.invalidateQueries({ queryKey: REPORTS_KEY });
       toast.success('Stock adjusted successfully');
     },
   });
 }
-

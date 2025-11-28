@@ -23,23 +23,41 @@ createRoot(document.getElementById('root')!).render(
       <App />
       <Toaster
         position="top-right"
+        gutter={12}
+        containerStyle={{
+          top: 20,
+          right: 20,
+        }}
         toastOptions={{
-          duration: 4000,
+          duration: 3500,
           style: {
-            background: '#292524',
-            color: '#f5f5f4',
-            borderRadius: '0.75rem',
+            padding: '14px 18px',
+            borderRadius: '10px',
+            fontSize: '14px',
+            fontWeight: '500',
+            maxWidth: '360px',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.12)',
           },
           success: {
+            style: {
+              background: '#e3e7dc', // olive-100
+              color: '#404c35', // olive-700
+              border: '1px solid #c8d1ba', // olive-200
+            },
             iconTheme: {
-              primary: '#22c55e',
-              secondary: '#f5f5f4',
+              primary: '#516141', // olive-600
+              secondary: '#f6f7f4', // olive-50
             },
           },
           error: {
+            style: {
+              background: '#fce7e4', // brick-100
+              color: '#8d3124', // brick-800
+              border: '1px solid #f5b3a8', // brick-300
+            },
             iconTheme: {
-              primary: '#ef4444',
-              secondary: '#f5f5f4',
+              primary: '#cc4532', // brick-600
+              secondary: '#fdf4f3', // brick-50
             },
           },
         }}
@@ -47,4 +65,3 @@ createRoot(document.getElementById('root')!).render(
     </QueryClientProvider>
   </StrictMode>
 );
-

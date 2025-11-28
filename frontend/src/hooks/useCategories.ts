@@ -4,6 +4,7 @@ import { categoriesService } from '@/services/categories';
 import type { CreateCategoryDTO, UpdateCategoryDTO } from '@shared/types';
 
 const QUERY_KEY = ['categories'];
+const REPORTS_KEY = ['reports'];
 
 export function useCategories() {
   return useQuery({
@@ -27,6 +28,7 @@ export function useCreateCategory() {
     mutationFn: (data: CreateCategoryDTO) => categoriesService.create(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEY });
+      queryClient.invalidateQueries({ queryKey: REPORTS_KEY });
       toast.success('Category created successfully');
     },
   });
@@ -40,6 +42,7 @@ export function useUpdateCategory() {
       categoriesService.update(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEY });
+      queryClient.invalidateQueries({ queryKey: REPORTS_KEY });
       toast.success('Category updated successfully');
     },
   });
@@ -52,8 +55,8 @@ export function useDeleteCategory() {
     mutationFn: (id: number) => categoriesService.delete(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEY });
+      queryClient.invalidateQueries({ queryKey: REPORTS_KEY });
       toast.success('Category deleted successfully');
     },
   });
 }
-

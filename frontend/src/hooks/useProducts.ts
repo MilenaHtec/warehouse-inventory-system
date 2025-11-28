@@ -4,6 +4,7 @@ import { productsService } from '@/services/products';
 import type { CreateProductDTO, UpdateProductDTO, ProductFilters } from '@shared/types';
 
 const QUERY_KEY = ['products'];
+const REPORTS_KEY = ['reports'];
 
 export function useProducts(filters?: ProductFilters) {
   return useQuery({
@@ -24,7 +25,7 @@ export function useProductSearch(query: string) {
   return useQuery({
     queryKey: [...QUERY_KEY, 'search', query],
     queryFn: () => productsService.search(query),
-    enabled: query.length >= 2,
+    enabled: query.length >= 1,
   });
 }
 
@@ -35,6 +36,7 @@ export function useCreateProduct() {
     mutationFn: (data: CreateProductDTO) => productsService.create(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEY });
+      queryClient.invalidateQueries({ queryKey: REPORTS_KEY });
       toast.success('Product created successfully');
     },
   });
@@ -48,6 +50,7 @@ export function useUpdateProduct() {
       productsService.update(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEY });
+      queryClient.invalidateQueries({ queryKey: REPORTS_KEY });
       toast.success('Product updated successfully');
     },
   });
@@ -60,8 +63,8 @@ export function useDeleteProduct() {
     mutationFn: (id: number) => productsService.delete(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEY });
+      queryClient.invalidateQueries({ queryKey: REPORTS_KEY });
       toast.success('Product deleted successfully');
     },
   });
 }
-

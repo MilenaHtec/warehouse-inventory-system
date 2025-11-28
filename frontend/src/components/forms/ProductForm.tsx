@@ -1,7 +1,7 @@
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Button, Input, Select } from '@/components/ui';
+import { Button, Input, Dropdown } from '@/components/ui';
 import { useCategories } from '@/hooks';
 import type { ProductWithCategory } from '@shared/types';
 
@@ -28,6 +28,7 @@ export function ProductForm({ product, onSubmit, onCancel, isLoading }: ProductF
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<ProductFormData>({
     resolver: zodResolver(productSchema),
@@ -41,7 +42,7 @@ export function ProductForm({ product, onSubmit, onCancel, isLoading }: ProductF
   });
 
   const categoryOptions = categories?.map((cat) => ({
-    value: cat.id,
+    value: cat.id.toString(),
     label: cat.name,
   })) || [];
 
@@ -74,12 +75,19 @@ export function ProductForm({ product, onSubmit, onCancel, isLoading }: ProductF
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <Select
-          label="Category"
-          options={categoryOptions}
-          placeholder="Select category"
-          error={errors.category_id?.message}
-          {...register('category_id')}
+        <Controller
+          name="category_id"
+          control={control}
+          render={({ field }) => (
+            <Dropdown
+              label="Category"
+              options={categoryOptions}
+              value={field.value?.toString() || ''}
+              onChange={(value) => field.onChange(Number(value))}
+              placeholder="Select category"
+              error={errors.category_id?.message}
+            />
+          )}
         />
 
         {!product && (
@@ -105,4 +113,3 @@ export function ProductForm({ product, onSubmit, onCancel, isLoading }: ProductF
     </form>
   );
 }
-
