@@ -15,6 +15,7 @@ A full-stack warehouse inventory management application built with Node.js, Expr
 - **Audit History** - Complete history of all inventory changes per product
 - **Reports & Analytics** - Stock by category, low stock alerts, dashboard stats
 - **Real-time Dashboard** - Live statistics with automatic updates
+- **Dark Mode** - Toggle between light and dark themes (persisted)
 - **Modern UI** - Beautiful earthy color palette with responsive design
 
 ## Tech Stack
