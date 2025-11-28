@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { paginationSchema } from './common.js';
+import { paginationFields } from './common.js';
 
 // ============================================
 // Inventory Validation Schemas
@@ -27,7 +27,8 @@ export const stockAdjustSchema = z.object({
     .nullable(),
 });
 
-export const inventoryHistoryFiltersSchema = paginationSchema.extend({
+export const inventoryHistoryFiltersSchema = z.object({
+  ...paginationFields,
   change_type: z.enum(['increase', 'decrease', 'adjustment']).optional(),
   start_date: z.string().datetime().optional(),
   end_date: z.string().datetime().optional(),
@@ -41,4 +42,3 @@ export const productIdParamSchema = z.object({
 export type StockChangeInput = z.infer<typeof stockChangeSchema>;
 export type StockAdjustInput = z.infer<typeof stockAdjustSchema>;
 export type InventoryHistoryFiltersInput = z.infer<typeof inventoryHistoryFiltersSchema>;
-

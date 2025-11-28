@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { paginationSchema, sortOrderSchema } from './common.js';
+import { paginationFields, sortOrderSchema } from './common.js';
 
 // ============================================
 // Product Validation Schemas
@@ -51,10 +51,11 @@ export const updateProductSchema = z.object({
   message: 'At least one field must be provided',
 });
 
-export const productFiltersSchema = paginationSchema.extend({
+export const productFiltersSchema = z.object({
+  ...paginationFields,
   category_id: z.string().regex(/^\d+$/).transform(Number).optional(),
   search: z.string().trim().optional(),
-  sort_by: z.enum(['name', 'price', 'quantity', 'created_at']).default('created_at'),
+  sort_by: z.enum(['name', 'price', 'quantity', 'created_at']).optional().default('created_at'),
   sort_order: sortOrderSchema,
 });
 
@@ -66,4 +67,3 @@ export const searchProductsSchema = z.object({
 export type CreateProductInput = z.infer<typeof createProductSchema>;
 export type UpdateProductInput = z.infer<typeof updateProductSchema>;
 export type ProductFiltersInput = z.infer<typeof productFiltersSchema>;
-
