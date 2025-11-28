@@ -2,89 +2,200 @@
 
 ## System Overview
 
-Warehouse Inventory System is a backend application designed following **Layered Architecture** principles. The system enables management of products, categories, and inventory with a complete audit trail of all changes.
+Warehouse Inventory System is a **full-stack web application** designed following modern architectural principles. The system enables management of products, categories, and inventory with a complete audit trail of all changes.
+
+The application consists of:
+- **Frontend**: React-based SPA for user interaction
+- **Backend**: Node.js REST API for business logic and data management
+- **Database**: SQLite for persistent storage
 
 ---
 
-## High-Level Architecture
+## Full-Stack Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                        CLIENT LAYER                              │
-│                    (REST API Consumers)                          │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                      PRESENTATION LAYER                          │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────────┐  │
-│  │  Controllers │  │  Middleware │  │  Error Handler (Global) │  │
-│  └─────────────┘  └─────────────┘  └─────────────────────────┘  │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                       BUSINESS LAYER                             │
-│  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐  │
-│  │ Product Service │  │ Category Service │  │ Inventory Svc   │  │
-│  └─────────────────┘  └─────────────────┘  └─────────────────┘  │
-│  ┌─────────────────┐  ┌─────────────────┐                       │
-│  │ Report Service  │  │  Audit Service  │                       │
-│  └─────────────────┘  └─────────────────┘                       │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                      DATA ACCESS LAYER                           │
-│  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐  │
-│  │ Product Repo    │  │ Category Repo   │  │ Inventory Repo  │  │
-│  └─────────────────┘  └─────────────────┘  └─────────────────┘  │
-│  ┌─────────────────┐                                            │
-│  │ Audit Log Repo  │                                            │
-│  └─────────────────┘                                            │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                       DATABASE LAYER                             │
-│                         (SQLite)                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
-
----
-
-## Component Diagram
-
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│                            API Gateway                                  │
-│                                                                        │
-│  /api/products    /api/categories    /api/inventory    /api/reports   │
-└────────────────────────────────────────────────────────────────────────┘
-         │                  │                  │               │
-         ▼                  ▼                  ▼               ▼
-┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
-│   Product    │   │   Category   │   │  Inventory   │   │    Report    │
-│  Controller  │   │  Controller  │   │  Controller  │   │  Controller  │
-└──────────────┘   └──────────────┘   └──────────────┘   └──────────────┘
-         │                  │                  │               │
-         ▼                  ▼                  ▼               ▼
-┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
-│   Product    │   │   Category   │   │  Inventory   │   │    Report    │
-│   Service    │   │   Service    │   │   Service    │   │   Service    │
-└──────────────┘   └──────────────┘   └──────────────┘   └──────────────┘
-         │                  │                  │               │
-         └──────────────────┼──────────────────┼───────────────┘
-                            ▼                  ▼
-                    ┌──────────────┐   ┌──────────────┐
-                    │    Audit     │   │   Logger     │
-                    │   Service    │   │   Service    │
-                    └──────────────┘   └──────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              FRONTEND                                        │
+│                         (React SPA - Vite)                                  │
+│                                                                             │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────────┐    │
+│  │    Pages    │  │ Components  │  │   Hooks     │  │  State (Zustand)│    │
+│  └─────────────┘  └─────────────┘  └─────────────┘  └─────────────────┘    │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    │ HTTP/REST (JSON)
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              BACKEND                                         │
+│                      (Node.js + Express + TypeScript)                       │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │                      PRESENTATION LAYER                              │   │
+│  │  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────────────┐  │   │
+│  │  │ Controllers │  │  Middleware │  │  Error Handler (Global)     │  │   │
+│  │  └─────────────┘  └─────────────┘  └─────────────────────────────┘  │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                    │                                        │
+│                                    ▼                                        │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │                        BUSINESS LAYER                                │   │
+│  │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌───────────┐  │   │
+│  │  │Product Svc  │  │Category Svc │  │Inventory Svc│  │Report Svc │  │   │
+│  │  └─────────────┘  └─────────────┘  └─────────────┘  └───────────┘  │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                    │                                        │
+│                                    ▼                                        │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │                       DATA ACCESS LAYER                              │   │
+│  │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌───────────┐  │   │
+│  │  │Product Repo │  │Category Repo│  │Inventory Repo│ │Audit Repo │  │   │
+│  │  └─────────────┘  └─────────────┘  └─────────────┘  └───────────┘  │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              DATABASE                                        │
+│                              (SQLite)                                        │
+└─────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Database Schema (ERD)
+## Technology Stack
+
+### Frontend
+
+| Layer          | Technology          | Reason                                         |
+| -------------- | ------------------- | ---------------------------------------------- |
+| Framework      | **React 18**        | Component-based, large ecosystem               |
+| Build Tool     | **Vite**            | Fast HMR, optimized builds                     |
+| Language       | **TypeScript**      | Type safety, shared types with backend         |
+| Styling        | **Tailwind CSS**    | Utility-first, rapid UI development            |
+| State          | **Zustand**         | Lightweight, simple API                        |
+| Data Fetching  | **TanStack Query**  | Caching, background updates, loading states    |
+| Forms          | **React Hook Form** | Performance, validation integration            |
+| Validation     | **Zod**             | Shared schemas with backend                    |
+| Routing        | **React Router**    | Standard routing solution                      |
+| HTTP Client    | **Axios**           | Interceptors, error handling                   |
+| Tables         | **TanStack Table**  | Sorting, filtering, pagination                 |
+| Notifications  | **React Hot Toast** | User feedback                                  |
+
+### Backend
+
+| Layer      | Technology         | Reason                                         |
+| ---------- | ------------------ | ---------------------------------------------- |
+| Runtime    | **Node.js** (v18+) | Simple, fast development                       |
+| Language   | **TypeScript**     | Type safety, better maintainability            |
+| Framework  | **Express.js**     | Lightweight, flexible                          |
+| Database   | **SQLite**         | Lightweight, zero-config, local database       |
+| ORM        | **better-sqlite3** | Sync API, fast, TypeScript support             |
+| Validation | **Zod**            | Runtime validation with TypeScript integration |
+| Testing    | **Jest**           | Feature-rich, excellent documentation          |
+| Logging    | **Winston**        | Flexible logging with multiple transports      |
+
+---
+
+## Project Structure
+
+```
+warehouse-inventory-system/
+│
+├── frontend/                      # React Frontend Application
+│   ├── src/
+│   │   ├── components/            # Reusable UI components
+│   │   ├── pages/                 # Page components (routes)
+│   │   ├── hooks/                 # Custom React hooks
+│   │   ├── services/              # API client services
+│   │   ├── stores/                # Zustand state stores
+│   │   ├── types/                 # TypeScript types
+│   │   ├── utils/                 # Utility functions
+│   │   ├── App.tsx                # Root component
+│   │   └── main.tsx               # Entry point
+│   ├── public/                    # Static assets
+│   ├── index.html
+│   ├── package.json
+│   ├── vite.config.ts
+│   ├── tailwind.config.js
+│   └── tsconfig.json
+│
+├── backend/                       # Node.js Backend Application
+│   ├── src/
+│   │   ├── controllers/           # Request handlers
+│   │   ├── services/              # Business logic
+│   │   ├── repositories/          # Data access
+│   │   ├── models/                # Data models/entities
+│   │   ├── middleware/            # Express middleware
+│   │   ├── routes/                # Route definitions
+│   │   ├── utils/                 # Utility functions
+│   │   ├── config/                # Configuration
+│   │   ├── types/                 # TypeScript types
+│   │   └── app.ts                 # Application entry point
+│   ├── tests/                     # Test files
+│   ├── database/                  # Migrations and seeds
+│   ├── logs/                      # Application logs
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── jest.config.js
+│
+├── shared/                        # Shared code between FE and BE
+│   └── types/                     # Shared TypeScript types
+│       ├── product.types.ts
+│       ├── category.types.ts
+│       ├── inventory.types.ts
+│       └── api.types.ts
+│
+├── docs/                          # Documentation
+│   └── *.md
+│
+├── REQUIREMENTS.md
+├── ARCHITECTURE.md
+├── DATA-MODEL.md
+├── FRONTEND-ARCHITECTURE.md
+└── README.md
+```
+
+---
+
+## Communication Flow
+
+```
+┌──────────────────────────────────────────────────────────────────────────┐
+│                           USER INTERACTION                                │
+└──────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌──────────────────────────────────────────────────────────────────────────┐
+│  FRONTEND                                                                 │
+│  ┌────────────┐    ┌────────────┐    ┌────────────┐    ┌────────────┐   │
+│  │   Page     │───▶│   Hook     │───▶│  Service   │───▶│   Store    │   │
+│  │ Component  │    │(useQuery)  │    │ (API call) │    │ (Zustand)  │   │
+│  └────────────┘    └────────────┘    └────────────┘    └────────────┘   │
+└──────────────────────────────────────────────────────────────────────────┘
+                                    │
+                           HTTP Request (JSON)
+                                    │
+                                    ▼
+┌──────────────────────────────────────────────────────────────────────────┐
+│  BACKEND                                                                  │
+│  ┌────────────┐    ┌────────────┐    ┌────────────┐    ┌────────────┐   │
+│  │   Route    │───▶│ Controller │───▶│  Service   │───▶│ Repository │   │
+│  └────────────┘    └────────────┘    └────────────┘    └────────────┘   │
+└──────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌──────────────────────────────────────────────────────────────────────────┐
+│                              DATABASE                                     │
+└──────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Backend Architecture
+
+### Database Schema (ERD)
 
 ```
 ┌─────────────────────────────────┐
@@ -145,95 +256,6 @@ Warehouse Inventory System is a backend application designed following **Layered
 
 ---
 
-## Directory Structure
-
-```
-warehouse-inventory-system/
-├── src/
-│   ├── controllers/          # Request handlers
-│   │   ├── product.controller.ts
-│   │   ├── category.controller.ts
-│   │   ├── inventory.controller.ts
-│   │   └── report.controller.ts
-│   │
-│   ├── services/             # Business logic
-│   │   ├── product.service.ts
-│   │   ├── category.service.ts
-│   │   ├── inventory.service.ts
-│   │   ├── report.service.ts
-│   │   └── audit.service.ts
-│   │
-│   ├── repositories/         # Data access
-│   │   ├── product.repository.ts
-│   │   ├── category.repository.ts
-│   │   ├── inventory.repository.ts
-│   │   └── audit.repository.ts
-│   │
-│   ├── models/               # Data models/entities
-│   │   ├── product.model.ts
-│   │   ├── category.model.ts
-│   │   └── inventory-history.model.ts
-│   │
-│   ├── middleware/           # Express middleware
-│   │   ├── error-handler.middleware.ts
-│   │   ├── validation.middleware.ts
-│   │   └── logger.middleware.ts
-│   │
-│   ├── utils/                # Utility functions
-│   │   ├── logger.ts
-│   │   ├── errors.ts
-│   │   └── validators.ts
-│   │
-│   ├── config/               # Configuration
-│   │   ├── database.ts
-│   │   └── app.config.ts
-│   │
-│   ├── routes/               # Route definitions
-│   │   ├── index.ts
-│   │   ├── product.routes.ts
-│   │   ├── category.routes.ts
-│   │   ├── inventory.routes.ts
-│   │   └── report.routes.ts
-│   │
-│   ├── types/                # TypeScript types
-│   │   └── index.ts
-│   │
-│   └── app.ts                # Application entry point
-│
-├── tests/                    # Test files
-│   ├── unit/
-│   │   ├── services/
-│   │   └── repositories/
-│   └── integration/
-│
-├── database/
-│   ├── migrations/           # Database migrations
-│   └── seeds/                # Seed data
-│
-├── logs/                     # Application logs
-├── package.json
-├── tsconfig.json
-├── jest.config.js
-└── README.md
-```
-
----
-
-## Technology Stack
-
-| Layer      | Technology         | Reason                                         |
-| ---------- | ------------------ | ---------------------------------------------- |
-| Runtime    | **Node.js** (v18+) | Simple, fast development                       |
-| Language   | **TypeScript**     | Type safety, better maintainability            |
-| Framework  | **Express.js**     | Lightweight, flexible                          |
-| Database   | **SQLite**         | Lightweight, zero-config, local database       |
-| ORM        | **better-sqlite3** | Sync API, fast, TypeScript support             |
-| Validation | **Zod**            | Runtime validation with TypeScript integration |
-| Testing    | **Jest**           | Feature-rich, excellent documentation          |
-| Logging    | **Winston**        | Flexible logging with multiple transports      |
-
----
-
 ## API Endpoints Design
 
 ### Products
@@ -276,32 +298,9 @@ warehouse-inventory-system/
 
 ---
 
-## Request/Response Flow
-
-```
-┌──────────┐    ┌────────────┐    ┌─────────────┐    ┌────────────┐
-│  Client  │───▶│ Middleware │───▶│  Controller │───▶│  Service   │
-└──────────┘    └────────────┘    └─────────────┘    └────────────┘
-                     │                   │                  │
-                     │                   │                  ▼
-                     │                   │           ┌────────────┐
-                     │                   │           │ Repository │
-                     │                   │           └────────────┘
-                     │                   │                  │
-                     │                   │                  ▼
-                     │                   │           ┌────────────┐
-                     │                   │           │  Database  │
-                     │                   │           └────────────┘
-                     │                   │                  │
-                     ◀───────────────────┴──────────────────┘
-                           Response (JSON)
-```
-
----
-
 ## Error Handling Strategy
 
-### Error Types
+### Backend Error Types
 
 ```typescript
 // Custom Error Classes
@@ -312,21 +311,7 @@ warehouse-inventory-system/
 │   └── DatabaseError (500)
 ```
 
-### Global Error Handler
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                   Global Error Handler                       │
-├─────────────────────────────────────────────────────────────┤
-│  1. Catch all unhandled errors                              │
-│  2. Log error details (Winston)                             │
-│  3. Transform to consistent error response                  │
-│  4. Return appropriate HTTP status code                     │
-│  5. Hide internal details in production                     │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### Error Response Format
+### API Error Response Format
 
 ```json
 {
@@ -343,6 +328,12 @@ warehouse-inventory-system/
   }
 }
 ```
+
+### Frontend Error Handling
+
+- **API Errors**: Caught by Axios interceptors, displayed via toast notifications
+- **Form Errors**: Handled by React Hook Form + Zod validation
+- **Global Errors**: Error boundary components catch React errors
 
 ---
 
@@ -368,7 +359,7 @@ warehouse-inventory-system/
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### Test Focus Areas
+### Backend Test Focus
 
 | Layer        | Test Type        | Coverage Focus                         |
 | ------------ | ---------------- | -------------------------------------- |
@@ -377,35 +368,14 @@ warehouse-inventory-system/
 | Controllers  | Integration      | Request/Response handling              |
 | Middleware   | Unit             | Error handling, validation             |
 
----
+### Frontend Test Focus
 
-## Data Flow Examples
-
-### Stock Decrease Operation
-
-```
-1. Request: POST /api/inventory/:productId/decrease
-   Body: { quantity: 5, reason: "Sale" }
-
-2. Controller: Validates request params
-
-3. Service:
-   ├── Fetch current product
-   ├── Validate: newQuantity >= 0
-   ├── Update product quantity
-   ├── Create inventory_history record
-   └── Return updated product
-
-4. Response:
-   {
-     "success": true,
-     "data": {
-       "product": { ... },
-       "previousQuantity": 10,
-       "newQuantity": 5
-     }
-   }
-```
+| Layer      | Test Type   | Coverage Focus                    |
+| ---------- | ----------- | --------------------------------- |
+| Components | Unit        | Rendering, user interactions      |
+| Hooks      | Unit        | State management, side effects    |
+| Services   | Unit        | API calls, data transformation    |
+| Pages      | Integration | Full page flows, routing          |
 
 ---
 
@@ -413,27 +383,33 @@ warehouse-inventory-system/
 
 | Concern          | Solution                             |
 | ---------------- | ------------------------------------ |
-| Input Validation | Zod schemas on all endpoints         |
+| Input Validation | Zod schemas on frontend and backend  |
 | SQL Injection    | Parameterized queries (ORM)          |
+| XSS              | React's built-in escaping            |
 | Error Exposure   | Generic error messages in production |
-| Logging          | No sensitive data in logs            |
+| CORS             | Configured allowed origins           |
 
 ---
 
 ## Scalability Notes
 
-Current architecture is designed for single-instance deployment with SQLite. For future scaling:
+Current architecture is designed for single-instance deployment. For future scaling:
 
 1. **Database Migration**: SQLite → PostgreSQL/MySQL
 2. **Caching Layer**: Redis for frequently accessed data
 3. **API Rate Limiting**: Express rate-limit middleware
 4. **Horizontal Scaling**: Stateless design enables easy scaling
+5. **CDN**: Static frontend assets served via CDN
+6. **Container**: Docker for consistent deployments
 
 ---
 
-## Next Steps
+## Related Documentation
 
-1. [ ] **DATA-MODEL.md** - Detailed data model documentation
-2. [ ] **API.md** - Detailed API documentation with examples
-3. [ ] **TESTING.md** - Test plan and strategy
-4. [ ] **Project Setup** - Initialization and configuration
+| Document                   | Description                          |
+| -------------------------- | ------------------------------------ |
+| `REQUIREMENTS.md`          | Functional and non-functional requirements |
+| `DATA-MODEL.md`            | Detailed database schema and types   |
+| `FRONTEND-ARCHITECTURE.md` | Frontend-specific architecture details |
+| `API.md`                   | Detailed API documentation           |
+| `TESTING.md`               | Test plan and strategy               |
