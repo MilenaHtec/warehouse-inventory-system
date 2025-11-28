@@ -2,7 +2,7 @@
 
 ## System Overview
 
-Warehouse Inventory System je backend aplikacija dizajnirana po principima **Layered Architecture** (slojevita arhitektura). Sistem omogućava upravljanje proizvodima, kategorijama i zalihama sa kompletnim audit trail-om svih promena.
+Warehouse Inventory System is a backend application designed following **Layered Architecture** principles. The system enables management of products, categories, and inventory with a complete audit trail of all changes.
 
 ---
 
@@ -128,19 +128,20 @@ Warehouse Inventory System je backend aplikacija dizajnirana po principima **Lay
 └─────────────────────────────────┘
 ```
 
-### Opis Tabela
+### Table Descriptions
 
-| Tabela | Opis |
-|--------|------|
-| `categories` | Kategorije proizvoda (Beverages, Snacks, Household...) |
-| `products` | Osnovne informacije o proizvodima i trenutna količina |
-| `inventory_history` | Audit log svih promena zaliha |
+| Table               | Description                                          |
+| ------------------- | ---------------------------------------------------- |
+| `categories`        | Product categories (Beverages, Snacks, Household...) |
+| `products`          | Core product information and current stock quantity  |
+| `inventory_history` | Audit log of all inventory changes                   |
 
 ### change_type Enum Values
-- `STOCK_IN` - Povećanje zaliha
-- `STOCK_OUT` - Smanjenje zaliha
-- `ADJUSTMENT` - Korekcija inventara
-- `INITIAL` - Početno stanje
+
+- `STOCK_IN` - Stock increase
+- `STOCK_OUT` - Stock decrease
+- `ADJUSTMENT` - Inventory correction
+- `INITIAL` - Initial stock
 
 ---
 
@@ -220,16 +221,16 @@ warehouse-inventory-system/
 
 ## Technology Stack
 
-| Layer | Technology | Razlog |
-|-------|------------|--------|
-| Runtime | **Node.js** (v18+) | Jednostavan, brz development |
-| Language | **TypeScript** | Type safety, bolja maintainability |
-| Framework | **Express.js** | Lightweight, fleksibilan |
-| Database | **SQLite** | Lightweight, zero-config, lokalna baza |
-| ORM | **better-sqlite3** | Sync API, brz, TypeScript support |
-| Validation | **Zod** | Runtime validation sa TypeScript integracija |
-| Testing | **Jest** | Feature-rich, dobra dokumentacija |
-| Logging | **Winston** | Fleksibilan logging sa više transporta |
+| Layer      | Technology         | Reason                                         |
+| ---------- | ------------------ | ---------------------------------------------- |
+| Runtime    | **Node.js** (v18+) | Simple, fast development                       |
+| Language   | **TypeScript**     | Type safety, better maintainability            |
+| Framework  | **Express.js**     | Lightweight, flexible                          |
+| Database   | **SQLite**         | Lightweight, zero-config, local database       |
+| ORM        | **better-sqlite3** | Sync API, fast, TypeScript support             |
+| Validation | **Zod**            | Runtime validation with TypeScript integration |
+| Testing    | **Jest**           | Feature-rich, excellent documentation          |
+| Logging    | **Winston**        | Flexible logging with multiple transports      |
 
 ---
 
@@ -237,41 +238,41 @@ warehouse-inventory-system/
 
 ### Products
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/products` | Lista svih proizvoda (sa filtering/sorting) |
-| GET | `/api/products/:id` | Detalji jednog proizvoda |
-| POST | `/api/products` | Kreiranje novog proizvoda |
-| PUT | `/api/products/:id` | Update proizvoda |
-| DELETE | `/api/products/:id` | Brisanje proizvoda |
-| GET | `/api/products/search` | Pretraga proizvoda |
+| Method | Endpoint               | Description                                |
+| ------ | ---------------------- | ------------------------------------------ |
+| GET    | `/api/products`        | List all products (with filtering/sorting) |
+| GET    | `/api/products/:id`    | Get single product details                 |
+| POST   | `/api/products`        | Create new product                         |
+| PUT    | `/api/products/:id`    | Update product                             |
+| DELETE | `/api/products/:id`    | Delete product                             |
+| GET    | `/api/products/search` | Search products                            |
 
 ### Categories
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/categories` | Lista svih kategorija |
-| GET | `/api/categories/:id` | Detalji kategorije |
-| POST | `/api/categories` | Kreiranje kategorije |
-| PUT | `/api/categories/:id` | Update kategorije |
-| DELETE | `/api/categories/:id` | Brisanje kategorije |
-| GET | `/api/categories/:id/products` | Proizvodi u kategoriji |
+| Method | Endpoint                       | Description              |
+| ------ | ------------------------------ | ------------------------ |
+| GET    | `/api/categories`              | List all categories      |
+| GET    | `/api/categories/:id`          | Get category details     |
+| POST   | `/api/categories`              | Create category          |
+| PUT    | `/api/categories/:id`          | Update category          |
+| DELETE | `/api/categories/:id`          | Delete category          |
+| GET    | `/api/categories/:id/products` | Get products in category |
 
 ### Inventory
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/inventory/:productId/increase` | Povećanje zaliha |
-| POST | `/api/inventory/:productId/decrease` | Smanjenje zaliha |
-| GET | `/api/inventory/:productId/history` | Istorija promena za proizvod |
+| Method | Endpoint                             | Description                    |
+| ------ | ------------------------------------ | ------------------------------ |
+| POST   | `/api/inventory/:productId/increase` | Increase stock                 |
+| POST   | `/api/inventory/:productId/decrease` | Decrease stock                 |
+| GET    | `/api/inventory/:productId/history`  | Get change history for product |
 
 ### Reports
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/reports/stock-by-category` | Ukupne zalihe po kategoriji |
-| GET | `/api/reports/inventory-history` | Kompletna istorija promena |
-| GET | `/api/reports/low-stock` | Proizvodi sa niskim zalihama |
+| Method | Endpoint                         | Description             |
+| ------ | -------------------------------- | ----------------------- |
+| GET    | `/api/reports/stock-by-category` | Total stock by category |
+| GET    | `/api/reports/inventory-history` | Complete change history |
+| GET    | `/api/reports/low-stock`         | Products with low stock |
 
 ---
 
@@ -369,12 +370,12 @@ warehouse-inventory-system/
 
 ### Test Focus Areas
 
-| Layer | Test Type | Coverage Focus |
-|-------|-----------|----------------|
-| Services | Unit | Business logic, validacija, edge cases |
-| Repositories | Unit/Integration | CRUD operacije, queries |
-| Controllers | Integration | Request/Response handling |
-| Middleware | Unit | Error handling, validation |
+| Layer        | Test Type        | Coverage Focus                         |
+| ------------ | ---------------- | -------------------------------------- |
+| Services     | Unit             | Business logic, validation, edge cases |
+| Repositories | Unit/Integration | CRUD operations, queries               |
+| Controllers  | Integration      | Request/Response handling              |
+| Middleware   | Unit             | Error handling, validation             |
 
 ---
 
@@ -385,7 +386,7 @@ warehouse-inventory-system/
 ```
 1. Request: POST /api/inventory/:productId/decrease
    Body: { quantity: 5, reason: "Sale" }
-   
+
 2. Controller: Validates request params
 
 3. Service:
@@ -410,30 +411,29 @@ warehouse-inventory-system/
 
 ## Security Considerations
 
-| Concern | Solution |
-|---------|----------|
-| Input Validation | Zod schemas na svim endpoints |
-| SQL Injection | Parametrizovani queries (ORM) |
-| Error Exposure | Generic error messages u production |
-| Logging | Bez sensitive data u logovima |
+| Concern          | Solution                             |
+| ---------------- | ------------------------------------ |
+| Input Validation | Zod schemas on all endpoints         |
+| SQL Injection    | Parameterized queries (ORM)          |
+| Error Exposure   | Generic error messages in production |
+| Logging          | No sensitive data in logs            |
 
 ---
 
 ## Scalability Notes
 
-Trenutna arhitektura je dizajnirana za single-instance deployment sa SQLite. Za buduće skaliranje:
+Current architecture is designed for single-instance deployment with SQLite. For future scaling:
 
 1. **Database Migration**: SQLite → PostgreSQL/MySQL
-2. **Caching Layer**: Redis za frequently accessed data
+2. **Caching Layer**: Redis for frequently accessed data
 3. **API Rate Limiting**: Express rate-limit middleware
-4. **Horizontal Scaling**: Stateless design omogućava lako skaliranje
+4. **Horizontal Scaling**: Stateless design enables easy scaling
 
 ---
 
 ## Next Steps
 
-1. [ ] **API.md** - Detaljna API dokumentacija sa primerima
-2. [ ] **DATABASE.md** - Detaljna šema baze i migracije
-3. [ ] **TESTING.md** - Test plan i strategija
-4. [ ] **Setup projekta** - Inicijalizacija i konfiguracija
-
+1. [ ] **DATA-MODEL.md** - Detailed data model documentation
+2. [ ] **API.md** - Detailed API documentation with examples
+3. [ ] **TESTING.md** - Test plan and strategy
+4. [ ] **Project Setup** - Initialization and configuration
