@@ -5,6 +5,7 @@
 Warehouse Inventory System is a **full-stack web application** designed following modern architectural principles. The system enables management of products, categories, and inventory with a complete audit trail of all changes.
 
 The application consists of:
+
 - **Frontend**: React-based SPA for user interaction
 - **Backend**: Node.js REST API for business logic and data management
 - **Database**: SQLite for persistent storage
@@ -68,20 +69,20 @@ The application consists of:
 
 ### Frontend
 
-| Layer          | Technology          | Reason                                         |
-| -------------- | ------------------- | ---------------------------------------------- |
-| Framework      | **React 18**        | Component-based, large ecosystem               |
-| Build Tool     | **Vite**            | Fast HMR, optimized builds                     |
-| Language       | **TypeScript**      | Type safety, shared types with backend         |
-| Styling        | **Tailwind CSS**    | Utility-first, rapid UI development            |
-| State          | **Zustand**         | Lightweight, simple API                        |
-| Data Fetching  | **TanStack Query**  | Caching, background updates, loading states    |
-| Forms          | **React Hook Form** | Performance, validation integration            |
-| Validation     | **Zod**             | Shared schemas with backend                    |
-| Routing        | **React Router**    | Standard routing solution                      |
-| HTTP Client    | **Axios**           | Interceptors, error handling                   |
-| Tables         | **TanStack Table**  | Sorting, filtering, pagination                 |
-| Notifications  | **React Hot Toast** | User feedback                                  |
+| Layer         | Technology          | Reason                                      |
+| ------------- | ------------------- | ------------------------------------------- |
+| Framework     | **React 18**        | Component-based, large ecosystem            |
+| Build Tool    | **Vite**            | Fast HMR, optimized builds                  |
+| Language      | **TypeScript**      | Type safety, shared types with backend      |
+| Styling       | **Tailwind CSS**    | Utility-first, rapid UI development         |
+| State         | **Zustand**         | Lightweight, simple API                     |
+| Data Fetching | **TanStack Query**  | Caching, background updates, loading states |
+| Forms         | **React Hook Form** | Performance, validation integration         |
+| Validation    | **Zod**             | Shared schemas with backend                 |
+| Routing       | **React Router**    | Standard routing solution                   |
+| HTTP Client   | **Axios**           | Interceptors, error handling                |
+| Tables        | **TanStack Table**  | Sorting, filtering, pagination              |
+| Notifications | **React Hot Toast** | User feedback                               |
 
 ### Backend
 
@@ -370,12 +371,12 @@ warehouse-inventory-system/
 
 ### Frontend Test Focus
 
-| Layer      | Test Type   | Coverage Focus                    |
-| ---------- | ----------- | --------------------------------- |
-| Components | Unit        | Rendering, user interactions      |
-| Hooks      | Unit        | State management, side effects    |
-| Services   | Unit        | API calls, data transformation    |
-| Pages      | Integration | Full page flows, routing          |
+| Layer      | Test Type   | Coverage Focus                 |
+| ---------- | ----------- | ------------------------------ |
+| Components | Unit        | Rendering, user interactions   |
+| Hooks      | Unit        | State management, side effects |
+| Services   | Unit        | API calls, data transformation |
+| Pages      | Integration | Full page flows, routing       |
 
 ---
 
@@ -406,10 +407,10 @@ Current architecture is designed for single-instance deployment. For future scal
 
 ## Related Documentation
 
-| Document                   | Description                          |
-| -------------------------- | ------------------------------------ |
+| Document                   | Description                                |
+| -------------------------- | ------------------------------------------ |
 | `REQUIREMENTS.md`          | Functional and non-functional requirements |
-| `DATA-MODEL.md`            | Detailed database schema and types   |
-| `FRONTEND-ARCHITECTURE.md` | Frontend-specific architecture details |
-| `API.md`                   | Detailed API documentation           |
-| `TESTING.md`               | Test plan and strategy               |
+| `DATA-MODEL.md`            | Detailed database schema and types         |
+| `FRONTEND-ARCHITECTURE.md` | Frontend-specific architecture details     |
+| `API.md`                   | Detailed API documentation                 |
+| `TESTING.md`               | Test plan and strategy                     |

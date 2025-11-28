@@ -8,22 +8,22 @@ The frontend is a **Single Page Application (SPA)** built with React and TypeScr
 
 ## Technology Stack
 
-| Category       | Technology          | Version  | Purpose                                |
-| -------------- | ------------------- | -------- | -------------------------------------- |
-| Framework      | React               | 18.x     | UI component library                   |
-| Build Tool     | Vite                | 5.x      | Fast development and bundling          |
-| Language       | TypeScript          | 5.x      | Type safety                            |
-| Styling        | Tailwind CSS        | 3.x      | Utility-first CSS framework            |
-| State          | Zustand             | 4.x      | Global state management                |
-| Server State   | TanStack Query      | 5.x      | Data fetching and caching              |
-| Forms          | React Hook Form     | 7.x      | Form state and validation              |
-| Validation     | Zod                 | 3.x      | Schema validation                      |
-| Routing        | React Router        | 6.x      | Client-side routing                    |
-| HTTP Client    | Axios               | 1.x      | API communication                      |
-| Tables         | TanStack Table      | 8.x      | Data tables with sorting/filtering     |
-| Icons          | Lucide React        | latest   | Icon library                           |
-| Notifications  | React Hot Toast     | 2.x      | Toast notifications                    |
-| Testing        | Vitest + RTL        | latest   | Unit and integration testing           |
+| Category      | Technology      | Version | Purpose                            |
+| ------------- | --------------- | ------- | ---------------------------------- |
+| Framework     | React           | 18.x    | UI component library               |
+| Build Tool    | Vite            | 5.x     | Fast development and bundling      |
+| Language      | TypeScript      | 5.x     | Type safety                        |
+| Styling       | Tailwind CSS    | 3.x     | Utility-first CSS framework        |
+| State         | Zustand         | 4.x     | Global state management            |
+| Server State  | TanStack Query  | 5.x     | Data fetching and caching          |
+| Forms         | React Hook Form | 7.x     | Form state and validation          |
+| Validation    | Zod             | 3.x     | Schema validation                  |
+| Routing       | React Router    | 6.x     | Client-side routing                |
+| HTTP Client   | Axios           | 1.x     | API communication                  |
+| Tables        | TanStack Table  | 8.x     | Data tables with sorting/filtering |
+| Icons         | Lucide React    | latest  | Icon library                       |
+| Notifications | React Hot Toast | 2.x     | Toast notifications                |
+| Testing       | Vitest + RTL    | latest  | Unit and integration testing       |
 
 ---
 
@@ -228,22 +228,22 @@ frontend/
 ```typescript
 const routes = [
   {
-    path: '/',
+    path: "/",
     element: <MainLayout />,
     children: [
       { index: true, element: <Dashboard /> },
-      { path: 'products', element: <ProductList /> },
-      { path: 'products/new', element: <ProductCreate /> },
-      { path: 'products/:id', element: <ProductDetail /> },
-      { path: 'categories', element: <CategoryList /> },
-      { path: 'categories/:id', element: <CategoryDetail /> },
-      { path: 'inventory', element: <StockManagement /> },
-      { path: 'inventory/history', element: <InventoryHistory /> },
-      { path: 'reports/by-category', element: <StockByCategory /> },
-      { path: 'reports/low-stock', element: <LowStockReport /> },
+      { path: "products", element: <ProductList /> },
+      { path: "products/new", element: <ProductCreate /> },
+      { path: "products/:id", element: <ProductDetail /> },
+      { path: "categories", element: <CategoryList /> },
+      { path: "categories/:id", element: <CategoryDetail /> },
+      { path: "inventory", element: <StockManagement /> },
+      { path: "inventory/history", element: <InventoryHistory /> },
+      { path: "reports/by-category", element: <StockByCategory /> },
+      { path: "reports/low-stock", element: <LowStockReport /> },
     ],
   },
-  { path: '*', element: <NotFound /> },
+  { path: "*", element: <NotFound /> },
 ];
 ```
 
@@ -253,36 +253,46 @@ const routes = [
 
 ### Component Categories
 
-| Category    | Purpose                              | Example                     |
-| ----------- | ------------------------------------ | --------------------------- |
-| UI          | Reusable base components             | Button, Input, Modal        |
-| Forms       | Form-specific components             | ProductForm, SearchForm     |
-| Tables      | Data display components              | ProductsTable, DataTable    |
-| Layout      | Page structure components            | Header, Sidebar, MainLayout |
-| Feedback    | User feedback components             | LoadingState, EmptyState    |
-| Pages       | Route components                     | ProductList, Dashboard      |
+| Category | Purpose                   | Example                     |
+| -------- | ------------------------- | --------------------------- |
+| UI       | Reusable base components  | Button, Input, Modal        |
+| Forms    | Form-specific components  | ProductForm, SearchForm     |
+| Tables   | Data display components   | ProductsTable, DataTable    |
+| Layout   | Page structure components | Header, Sidebar, MainLayout |
+| Feedback | User feedback components  | LoadingState, EmptyState    |
+| Pages    | Route components          | ProductList, Dashboard      |
 
 ### Component Template
 
 ```typescript
 // components/ui/Button.tsx
-import { forwardRef, ButtonHTMLAttributes } from 'react';
-import { cn } from '@/utils/cn';
+import { forwardRef, ButtonHTMLAttributes } from "react";
+import { cn } from "@/utils/cn";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'danger' | 'ghost';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: "primary" | "secondary" | "danger" | "ghost";
+  size?: "sm" | "md" | "lg";
   isLoading?: boolean;
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = 'primary', size = 'md', isLoading, children, ...props }, ref) => {
+  (
+    {
+      className,
+      variant = "primary",
+      size = "md",
+      isLoading,
+      children,
+      ...props
+    },
+    ref
+  ) => {
     return (
       <button
         ref={ref}
         className={cn(
-          'inline-flex items-center justify-center rounded-md font-medium transition-colors',
-          'focus-visible:outline-none focus-visible:ring-2',
+          "inline-flex items-center justify-center rounded-md font-medium transition-colors",
+          "focus-visible:outline-none focus-visible:ring-2",
           // variant styles
           // size styles
           className
@@ -305,15 +315,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
 ```typescript
 // stores/useUIStore.ts
-import { create } from 'zustand';
+import { create } from "zustand";
 
 interface UIState {
   isSidebarOpen: boolean;
   toggleSidebar: () => void;
-  
+
   modalState: {
     isOpen: boolean;
-    type: 'create' | 'edit' | 'delete' | null;
+    type: "create" | "edit" | "delete" | null;
     data: unknown;
   };
   openModal: (type: string, data?: unknown) => void;
@@ -322,11 +332,13 @@ interface UIState {
 
 export const useUIStore = create<UIState>((set) => ({
   isSidebarOpen: true,
-  toggleSidebar: () => set((state) => ({ isSidebarOpen: !state.isSidebarOpen })),
-  
+  toggleSidebar: () =>
+    set((state) => ({ isSidebarOpen: !state.isSidebarOpen })),
+
   modalState: { isOpen: false, type: null, data: null },
   openModal: (type, data) => set({ modalState: { isOpen: true, type, data } }),
-  closeModal: () => set({ modalState: { isOpen: false, type: null, data: null } }),
+  closeModal: () =>
+    set({ modalState: { isOpen: false, type: null, data: null } }),
 }));
 ```
 
@@ -334,19 +346,19 @@ export const useUIStore = create<UIState>((set) => ({
 
 ```typescript
 // hooks/api/useProducts.ts
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { productsService } from '@/services/products.service';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { productsService } from "@/services/products.service";
 
 export const useProducts = (filters?: ProductFilter) => {
   return useQuery({
-    queryKey: ['products', filters],
+    queryKey: ["products", filters],
     queryFn: () => productsService.getAll(filters),
   });
 };
 
 export const useProduct = (id: number) => {
   return useQuery({
-    queryKey: ['products', id],
+    queryKey: ["products", id],
     queryFn: () => productsService.getById(id),
     enabled: !!id,
   });
@@ -354,12 +366,12 @@ export const useProduct = (id: number) => {
 
 export const useCreateProduct = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: productsService.create,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['products'] });
-      toast.success('Product created successfully');
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+      toast.success("Product created successfully");
     },
     onError: (error) => {
       toast.error(error.message);
@@ -369,23 +381,23 @@ export const useCreateProduct = () => {
 
 export const useUpdateProduct = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: ({ id, data }) => productsService.update(id, data),
     onSuccess: (_, { id }) => {
-      queryClient.invalidateQueries({ queryKey: ['products'] });
-      queryClient.invalidateQueries({ queryKey: ['products', id] });
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+      queryClient.invalidateQueries({ queryKey: ["products", id] });
     },
   });
 };
 
 export const useDeleteProduct = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: productsService.delete,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['products'] });
+      queryClient.invalidateQueries({ queryKey: ["products"] });
     },
   });
 };
@@ -399,13 +411,13 @@ export const useDeleteProduct = () => {
 
 ```typescript
 // services/api.ts
-import axios from 'axios';
-import toast from 'react-hot-toast';
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:3000/api",
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
@@ -413,16 +425,16 @@ export const api = axios.create({
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    const message = error.response?.data?.error?.message || 'An error occurred';
-    
+    const message = error.response?.data?.error?.message || "An error occurred";
+
     if (error.response?.status === 404) {
-      toast.error('Resource not found');
+      toast.error("Resource not found");
     } else if (error.response?.status === 400) {
       toast.error(message);
     } else if (error.response?.status >= 500) {
-      toast.error('Server error. Please try again later.');
+      toast.error("Server error. Please try again later.");
     }
-    
+
     return Promise.reject(error);
   }
 );
@@ -432,12 +444,17 @@ api.interceptors.response.use(
 
 ```typescript
 // services/products.service.ts
-import { api } from './api';
-import type { Product, CreateProductDto, UpdateProductDto, ProductFilter } from '@/types';
+import { api } from "./api";
+import type {
+  Product,
+  CreateProductDto,
+  UpdateProductDto,
+  ProductFilter,
+} from "@/types";
 
 export const productsService = {
   getAll: async (filters?: ProductFilter): Promise<Product[]> => {
-    const { data } = await api.get('/products', { params: filters });
+    const { data } = await api.get("/products", { params: filters });
     return data.data;
   },
 
@@ -447,7 +464,7 @@ export const productsService = {
   },
 
   create: async (dto: CreateProductDto): Promise<Product> => {
-    const { data } = await api.post('/products', dto);
+    const { data } = await api.post("/products", dto);
     return data.data;
   },
 
@@ -461,7 +478,9 @@ export const productsService = {
   },
 
   search: async (query: string): Promise<Product[]> => {
-    const { data } = await api.get('/products/search', { params: { q: query } });
+    const { data } = await api.get("/products/search", {
+      params: { q: query },
+    });
     return data.data;
   },
 };
@@ -475,16 +494,16 @@ export const productsService = {
 
 ```typescript
 // components/forms/ProductForm.tsx
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
 const productSchema = z.object({
-  name: z.string().min(1, 'Name is required').max(200),
-  productCode: z.string().min(1, 'Product code is required').max(50),
-  price: z.number().min(0, 'Price must be non-negative'),
-  quantity: z.number().int().min(0, 'Quantity must be non-negative').default(0),
-  categoryId: z.number().int().positive('Category is required'),
+  name: z.string().min(1, "Name is required").max(200),
+  productCode: z.string().min(1, "Product code is required").max(50),
+  price: z.number().min(0, "Price must be non-negative"),
+  quantity: z.number().int().min(0, "Quantity must be non-negative").default(0),
+  categoryId: z.number().int().positive("Category is required"),
 });
 
 type ProductFormData = z.infer<typeof productSchema>;
@@ -495,7 +514,11 @@ interface ProductFormProps {
   isLoading?: boolean;
 }
 
-export const ProductForm = ({ initialData, onSubmit, isLoading }: ProductFormProps) => {
+export const ProductForm = ({
+  initialData,
+  onSubmit,
+  isLoading,
+}: ProductFormProps) => {
   const {
     register,
     handleSubmit,
@@ -510,14 +533,14 @@ export const ProductForm = ({ initialData, onSubmit, isLoading }: ProductFormPro
       <div>
         <Input
           label="Product Name"
-          {...register('name')}
+          {...register("name")}
           error={errors.name?.message}
         />
       </div>
       <div>
         <Input
           label="Product Code"
-          {...register('productCode')}
+          {...register("productCode")}
           error={errors.productCode?.message}
         />
       </div>
@@ -526,13 +549,13 @@ export const ProductForm = ({ initialData, onSubmit, isLoading }: ProductFormPro
           label="Price"
           type="number"
           step="0.01"
-          {...register('price', { valueAsNumber: true })}
+          {...register("price", { valueAsNumber: true })}
           error={errors.price?.message}
         />
       </div>
       <div>
         <CategorySelect
-          {...register('categoryId', { valueAsNumber: true })}
+          {...register("categoryId", { valueAsNumber: true })}
           error={errors.categoryId?.message}
         />
       </div>
@@ -597,14 +620,14 @@ const ProductList = () => {
 
 ```typescript
 // Success notification
-toast.success('Product created successfully');
+toast.success("Product created successfully");
 
 // Error notification
-toast.error('Failed to delete product');
+toast.error("Failed to delete product");
 
 // Custom notification
 toast.custom((t) => (
-  <div className={`${t.visible ? 'animate-enter' : 'animate-leave'}`}>
+  <div className={`${t.visible ? "animate-enter" : "animate-leave"}`}>
     Custom notification content
   </div>
 ));
@@ -618,7 +641,7 @@ toast.custom((t) => (
 
 ```typescript
 // components/feedback/ErrorBoundary.tsx
-import { Component, ErrorInfo, ReactNode } from 'react';
+import { Component, ErrorInfo, ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
@@ -638,19 +661,23 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Error caught by boundary:', error, errorInfo);
+    console.error("Error caught by boundary:", error, errorInfo);
   }
 
   render() {
     if (this.state.hasError) {
-      return this.props.fallback || (
-        <div className="p-8 text-center">
-          <h2 className="text-xl font-bold text-red-600">Something went wrong</h2>
-          <p className="text-gray-600 mt-2">{this.state.error?.message}</p>
-          <Button onClick={() => window.location.reload()} className="mt-4">
-            Reload Page
-          </Button>
-        </div>
+      return (
+        this.props.fallback || (
+          <div className="p-8 text-center">
+            <h2 className="text-xl font-bold text-red-600">
+              Something went wrong
+            </h2>
+            <p className="text-gray-600 mt-2">{this.state.error?.message}</p>
+            <Button onClick={() => window.location.reload()} className="mt-4">
+              Reload Page
+            </Button>
+          </div>
+        )
       );
     }
 
@@ -667,43 +694,45 @@ export class ErrorBoundary extends Component<Props, State> {
 
 ```typescript
 // tests/components/ProductForm.test.tsx
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { ProductForm } from '@/components/forms/ProductForm';
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { ProductForm } from "@/components/forms/ProductForm";
 
-describe('ProductForm', () => {
-  it('should render all form fields', () => {
+describe("ProductForm", () => {
+  it("should render all form fields", () => {
     render(<ProductForm onSubmit={jest.fn()} />);
-    
+
     expect(screen.getByLabelText(/product name/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/product code/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/price/i)).toBeInTheDocument();
   });
 
-  it('should show validation errors', async () => {
+  it("should show validation errors", async () => {
     render(<ProductForm onSubmit={jest.fn()} />);
-    
-    fireEvent.click(screen.getByRole('button', { name: /save/i }));
-    
+
+    fireEvent.click(screen.getByRole("button", { name: /save/i }));
+
     await waitFor(() => {
       expect(screen.getByText(/name is required/i)).toBeInTheDocument();
     });
   });
 
-  it('should call onSubmit with valid data', async () => {
+  it("should call onSubmit with valid data", async () => {
     const onSubmit = jest.fn();
     render(<ProductForm onSubmit={onSubmit} />);
-    
+
     fireEvent.change(screen.getByLabelText(/product name/i), {
-      target: { value: 'Test Product' },
+      target: { value: "Test Product" },
     });
     // ... fill other fields
-    
-    fireEvent.click(screen.getByRole('button', { name: /save/i }));
-    
+
+    fireEvent.click(screen.getByRole("button", { name: /save/i }));
+
     await waitFor(() => {
-      expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({
-        name: 'Test Product',
-      }));
+      expect(onSubmit).toHaveBeenCalledWith(
+        expect.objectContaining({
+          name: "Test Product",
+        })
+      );
     });
   });
 });
@@ -713,25 +742,27 @@ describe('ProductForm', () => {
 
 ```typescript
 // tests/hooks/useProducts.test.tsx
-import { renderHook, waitFor } from '@testing-library/react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useProducts } from '@/hooks/api/useProducts';
+import { renderHook, waitFor } from "@testing-library/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useProducts } from "@/hooks/api/useProducts";
 
 const wrapper = ({ children }) => {
   const queryClient = new QueryClient({
     defaultOptions: { queries: { retry: false } },
   });
-  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
+  return (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
 };
 
-describe('useProducts', () => {
-  it('should fetch products', async () => {
+describe("useProducts", () => {
+  it("should fetch products", async () => {
     const { result } = renderHook(() => useProducts(), { wrapper });
-    
+
     await waitFor(() => {
       expect(result.current.isSuccess).toBe(true);
     });
-    
+
     expect(result.current.data).toHaveLength(3);
   });
 });
@@ -754,22 +785,22 @@ VITE_APP_VERSION=1.0.0
 
 ```typescript
 // vite.config.ts
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import path from 'path';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import path from "path";
 
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      "@": path.resolve(__dirname, "./src"),
     },
   },
   server: {
     port: 5173,
     proxy: {
-      '/api': {
-        target: 'http://localhost:3000',
+      "/api": {
+        target: "http://localhost:3000",
         changeOrigin: true,
       },
     },
@@ -781,36 +812,35 @@ export default defineConfig({
 
 ## Performance Considerations
 
-| Technique              | Implementation                                      |
-| ---------------------- | --------------------------------------------------- |
-| Code Splitting         | React.lazy() for route components                   |
-| Memoization            | useMemo, useCallback for expensive operations       |
-| Virtual Lists          | TanStack Virtual for large lists                    |
-| Debounced Search       | useDebounce hook for search inputs                  |
-| Optimistic Updates     | TanStack Query optimistic mutations                 |
-| Image Optimization     | Lazy loading, proper sizing                         |
-| Bundle Analysis        | vite-plugin-visualizer for bundle inspection        |
+| Technique          | Implementation                                |
+| ------------------ | --------------------------------------------- |
+| Code Splitting     | React.lazy() for route components             |
+| Memoization        | useMemo, useCallback for expensive operations |
+| Virtual Lists      | TanStack Virtual for large lists              |
+| Debounced Search   | useDebounce hook for search inputs            |
+| Optimistic Updates | TanStack Query optimistic mutations           |
+| Image Optimization | Lazy loading, proper sizing                   |
+| Bundle Analysis    | vite-plugin-visualizer for bundle inspection  |
 
 ---
 
 ## Accessibility (a11y)
 
-| Feature                | Implementation                                      |
-| ---------------------- | --------------------------------------------------- |
-| Keyboard Navigation    | Focus management, tab order                         |
-| Screen Readers         | ARIA labels, semantic HTML                          |
-| Color Contrast         | WCAG 2.1 AA compliance                              |
-| Focus Indicators       | Visible focus rings                                 |
-| Error Announcements    | aria-live regions for dynamic content               |
+| Feature             | Implementation                        |
+| ------------------- | ------------------------------------- |
+| Keyboard Navigation | Focus management, tab order           |
+| Screen Readers      | ARIA labels, semantic HTML            |
+| Color Contrast      | WCAG 2.1 AA compliance                |
+| Focus Indicators    | Visible focus rings                   |
+| Error Announcements | aria-live regions for dynamic content |
 
 ---
 
 ## Related Documentation
 
-| Document           | Description                               |
-| ------------------ | ----------------------------------------- |
-| `ARCHITECTURE.md`  | Full-stack system architecture            |
-| `DATA-MODEL.md`    | Backend data model and types              |
-| `API.md`           | API endpoint documentation                |
-| `TESTING.md`       | Complete testing strategy                 |
-
+| Document          | Description                    |
+| ----------------- | ------------------------------ |
+| `ARCHITECTURE.md` | Full-stack system architecture |
+| `DATA-MODEL.md`   | Backend data model and types   |
+| `API.md`          | API endpoint documentation     |
+| `TESTING.md`      | Complete testing strategy      |
