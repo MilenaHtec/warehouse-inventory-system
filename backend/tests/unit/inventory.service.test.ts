@@ -202,6 +202,15 @@ describe('InventoryService', () => {
       // Assert
       expect(result.quantity_change).toBe(-15);
     });
+
+    it('should throw NotFoundError if product does not exist', () => {
+      // Arrange
+      mockProductRepository.findById.mockReturnValue(undefined);
+
+      // Act & Assert
+      expect(() => service.adjustStock(999, { new_quantity: 10 }))
+        .toThrow(NotFoundError);
+    });
   });
 
   describe('getHistory', () => {
@@ -228,6 +237,22 @@ describe('InventoryService', () => {
       expect(result.pagination.total).toBe(2);
     });
 
+    it('should use default pagination values', () => {
+      // Arrange
+      const product = { id: 1, name: 'Test Product', quantity: 10 };
+      const historyData = { history: [], total: 0 };
+      
+      mockProductRepository.findById.mockReturnValue(product);
+      mockInventoryRepository.findByProductId.mockReturnValue(historyData);
+
+      // Act
+      const result = service.getHistory(1, {});
+
+      // Assert
+      expect(result.pagination.page).toBe(1);
+      expect(result.pagination.limit).toBe(20);
+    });
+
     it('should throw NotFoundError if product does not exist', () => {
       // Arrange
       mockProductRepository.findById.mockReturnValue(undefined);
@@ -235,6 +260,55 @@ describe('InventoryService', () => {
       // Act & Assert
       expect(() => service.getHistory(999, {}))
         .toThrow(NotFoundError);
+    });
+  });
+
+  describe('getAllHistory', () => {
+    it('should return all history with pagination', () => {
+      // Arrange
+      const historyData = {
+        history: [
+          { id: 1, product_id: 1, change_type: 'increase', quantity_change: 5, product_name: 'Product 1' },
+          { id: 2, product_id: 2, change_type: 'decrease', quantity_change: -3, product_name: 'Product 2' },
+        ],
+        total: 2,
+      };
+      
+      mockInventoryRepository.findAll.mockReturnValue(historyData);
+
+      // Act
+      const result = service.getAllHistory({ page: 1, limit: 10 });
+
+      // Assert
+      expect(result.success).toBe(true);
+      expect(result.data).toHaveLength(2);
+      expect(result.pagination.total).toBe(2);
+    });
+
+    it('should use default pagination values when not provided', () => {
+      // Arrange
+      const historyData = { history: [], total: 0 };
+      mockInventoryRepository.findAll.mockReturnValue(historyData);
+
+      // Act
+      const result = service.getAllHistory({});
+
+      // Assert
+      expect(result.pagination.page).toBe(1);
+      expect(result.pagination.limit).toBe(20);
+      expect(result.pagination.total_pages).toBe(0);
+    });
+
+    it('should calculate total_pages correctly', () => {
+      // Arrange
+      const historyData = { history: [], total: 45 };
+      mockInventoryRepository.findAll.mockReturnValue(historyData);
+
+      // Act
+      const result = service.getAllHistory({ page: 1, limit: 10 });
+
+      // Assert
+      expect(result.pagination.total_pages).toBe(5);
     });
   });
 });
