@@ -2,7 +2,7 @@
 const config = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  roots: ['<rootDir>/src', '<rootDir>/tests'],
+  roots: ['<rootDir>/tests'],
   testMatch: ['**/*.test.ts'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
@@ -11,7 +11,8 @@ const config = {
   collectCoverageFrom: [
     'src/**/*.ts',
     '!src/app.ts',
-    '!src/config/*.ts'
+    '!src/config/migrate.ts',
+    '!src/config/seed.ts'
   ],
   coverageThreshold: {
     global: {
@@ -22,8 +23,15 @@ const config = {
     }
   },
   setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
-  verbose: true
+  transform: {
+    '^.+\\.ts$': ['ts-jest', {
+      useESM: true,
+    }]
+  },
+  extensionsToTreatAsEsm: ['.ts'],
+  moduleFileExtensions: ['ts', 'js', 'json'],
+  verbose: true,
+  testTimeout: 10000,
 };
 
 module.exports = config;
-
