@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   CSS Custom Properties
+   ============================================ */
+:root {
+  /* Background */
+  --bg-primary: theme('colors.stone.50');
+  --bg-secondary: theme('colors.white');
+  --bg-tertiary: theme('colors.stone.100');
+  
+  /* Text */
+  --text-primary: theme('colors.stone.900');
+  --text-secondary: theme('colors.stone.600');
+  --text-muted: theme('colors.stone.400');
+  
+  /* Accent */
+  --accent-primary: theme('colors.olive.600');
+  --accent-secondary: theme('colors.ochre.500');
+  --accent-highlight: theme('colors.brick.500');
+  
+  /* Borders */
+  --border-light: theme('colors.stone.200');
+  --border-default: theme('colors.stone.300');
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+@layer base {
+  html {
+    @apply antialiased;
+  }
+  
+  body {
+    @apply bg-stone-50 text-stone-900 font-sans;
+  }
+  
+  /* Focus styles */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-olive-500;
+  }
+  
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-stone-100 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-stone-300 rounded-full hover:bg-stone-400;
+  }
+}
+
+/* ============================================
+   Component Classes
+   ============================================ */
+@layer components {
+  /* Card */
+  .card {
+    @apply bg-white rounded-xl border border-stone-200 shadow-soft;
+  }
+  
+  /* Button Base */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 
+           font-medium rounded-lg transition-all duration-200
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  
+  .btn-primary {
+    @apply btn bg-olive-600 text-white hover:bg-olive-700 
+           focus-visible:ring-olive-500;
+  }
+  
+  .btn-secondary {
+    @apply btn bg-stone-100 text-stone-700 hover:bg-stone-200 
+           border border-stone-300 focus-visible:ring-stone-400;
+  }
+  
+  .btn-danger {
+    @apply btn bg-brick-600 text-white hover:bg-brick-700 
+           focus-visible:ring-brick-500;
+  }
+  
+  .btn-ghost {
+    @apply btn bg-transparent text-stone-600 hover:bg-stone-100 
+           focus-visible:ring-stone-400;
+  }
+  
+  /* Input */
+  .input {
+    @apply w-full px-3 py-2 bg-white border border-stone-300 rounded-lg
+           text-stone-900 placeholder:text-stone-400
+           focus:outline-none focus:ring-2 focus:ring-olive-500 focus:border-olive-500
+           disabled:bg-stone-100 disabled:cursor-not-allowed;
+  }
+  
+  .input-error {
+    @apply border-brick-500 focus:ring-brick-500 focus:border-brick-500;
+  }
+  
+  /* Label */
+  .label {
+    @apply block text-sm font-medium text-stone-700 mb-1;
+  }
+  
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full 
+           text-xs font-medium;
+  }
+  
+  .badge-success {
+    @apply badge bg-success-50 text-success-700;
+  }
+  
+  .badge-warning {
+    @apply badge bg-warning-50 text-warning-700;
+  }
+  
+  .badge-error {
+    @apply badge bg-error-50 text-error-700;
+  }
+  
+  .badge-olive {
+    @apply badge bg-olive-100 text-olive-700;
+  }
+  
+  .badge-ochre {
+    @apply badge bg-ochre-100 text-ochre-700;
+  }
+  
+  /* Table */
+  .table-container {
+    @apply overflow-x-auto rounded-lg border border-stone-200;
+  }
+  
+  .table {
+    @apply w-full text-sm text-left;
+  }
+  
+  .table thead {
+    @apply bg-stone-50 border-b border-stone-200;
+  }
+  
+  .table th {
+    @apply px-4 py-3 font-semibold text-stone-700 uppercase tracking-wider text-xs;
+  }
+  
+  .table td {
+    @apply px-4 py-3 border-b border-stone-100;
+  }
+  
+  .table tbody tr:hover {
+    @apply bg-stone-50;
+  }
+  
+  .table tbody tr:last-child td {
+    @apply border-b-0;
+  }
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* Hide scrollbar but allow scrolling */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+

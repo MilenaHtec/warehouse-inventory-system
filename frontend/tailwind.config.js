@@ -1,0 +1,143 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        // Primary Colors - Earthy Palette
+        stone: {
+          50: '#fafaf9',
+          100: '#f5f5f4',
+          200: '#e7e5e4',
+          300: '#d6d3d1',
+          400: '#a8a29e',
+          500: '#78716c',
+          600: '#57534e',
+          700: '#44403c',
+          800: '#292524',
+          900: '#1c1917',
+          950: '#0c0a09',
+        },
+        olive: {
+          50: '#f6f7f4',
+          100: '#e3e7dc',
+          200: '#c8d1ba',
+          300: '#a6b491',
+          400: '#859770',
+          500: '#687a54',
+          600: '#516141',
+          700: '#404c35',
+          800: '#353f2d',
+          900: '#2d3627',
+          950: '#171c13',
+        },
+        ochre: {
+          50: '#fdf8ef',
+          100: '#faeed9',
+          200: '#f4dbb2',
+          300: '#edc281',
+          400: '#e4a34e',
+          500: '#dd8b2c',
+          600: '#ce7122',
+          700: '#ab571e',
+          800: '#894520',
+          900: '#703a1d',
+          950: '#3c1c0d',
+        },
+        brick: {
+          50: '#fdf4f3',
+          100: '#fce7e4',
+          200: '#fad3cd',
+          300: '#f5b3a8',
+          400: '#ed8676',
+          500: '#e05f4a',
+          600: '#cc4532',
+          700: '#ab3726',
+          800: '#8d3124',
+          900: '#762e24',
+          950: '#40140e',
+        },
+        navy: {
+          50: '#f0f5fa',
+          100: '#dde8f3',
+          200: '#c3d6e9',
+          300: '#9abbd9',
+          400: '#6b99c5',
+          500: '#4a7db3',
+          600: '#3a6597',
+          700: '#31527a',
+          800: '#2d4666',
+          900: '#293c56',
+          950: '#1b2739',
+        },
+        // Semantic Colors
+        success: {
+          50: '#f0fdf4',
+          500: '#22c55e',
+          600: '#16a34a',
+          700: '#15803d',
+        },
+        warning: {
+          50: '#fffbeb',
+          500: '#f59e0b',
+          600: '#d97706',
+          700: '#b45309',
+        },
+        error: {
+          50: '#fef2f2',
+          500: '#ef4444',
+          600: '#dc2626',
+          700: '#b91c1c',
+        },
+      },
+      fontFamily: {
+        sans: ['DM Sans', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
+      },
+      fontSize: {
+        'xs': ['0.75rem', { lineHeight: '1rem' }],
+        'sm': ['0.875rem', { lineHeight: '1.25rem' }],
+        'base': ['1rem', { lineHeight: '1.5rem' }],
+        'lg': ['1.125rem', { lineHeight: '1.75rem' }],
+        'xl': ['1.25rem', { lineHeight: '1.75rem' }],
+        '2xl': ['1.5rem', { lineHeight: '2rem' }],
+        '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
+        '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
+      },
+      boxShadow: {
+        'soft': '0 2px 8px rgba(0, 0, 0, 0.08)',
+        'medium': '0 4px 16px rgba(0, 0, 0, 0.12)',
+        'hard': '0 8px 32px rgba(0, 0, 0, 0.16)',
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.2s ease-out',
+        'slide-up': 'slideUp 0.3s ease-out',
+        'slide-down': 'slideDown 0.3s ease-out',
+        'scale-in': 'scaleIn 0.2s ease-out',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideUp: {
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        slideDown: {
+          '0%': { opacity: '0', transform: 'translateY(-10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        scaleIn: {
+          '0%': { opacity: '0', transform: 'scale(0.95)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+      },
+    },
+  },
+  plugins: [],
+};
+
