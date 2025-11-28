@@ -6,7 +6,9 @@ const config = {
   testMatch: ['**/*.test.ts'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
-    '^@shared/(.*)$': '<rootDir>/../shared/$1'
+    '^@shared/(.*)$': '<rootDir>/../shared/$1',
+    // Handle .js extensions in imports (for ESM compatibility)
+    '^(\\.{1,2}/.*)\\.js$': '$1'
   },
   collectCoverageFrom: [
     'src/**/*.ts',
@@ -25,10 +27,9 @@ const config = {
   setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
   transform: {
     '^.+\\.ts$': ['ts-jest', {
-      useESM: true,
+      isolatedModules: true,
     }]
   },
-  extensionsToTreatAsEsm: ['.ts'],
   moduleFileExtensions: ['ts', 'js', 'json'],
   verbose: true,
   testTimeout: 10000,

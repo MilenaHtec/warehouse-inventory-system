@@ -51,7 +51,7 @@ export function Modal({
     <div className="fixed inset-0 z-50 overflow-y-auto">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-stone-900/50 transition-opacity animate-fade-in"
+        className="fixed inset-0 bg-stone-900/50 dark:bg-stone-950/70 transition-opacity animate-fade-in"
         onClick={onClose}
         aria-hidden="true"
       />
@@ -60,7 +60,7 @@ export function Modal({
       <div className="flex min-h-full items-center justify-center p-4">
         <div
           className={cn(
-            'relative w-full bg-white rounded-xl shadow-hard animate-scale-in',
+            'relative w-full bg-white dark:bg-stone-900 rounded-xl shadow-hard animate-scale-in',
             sizes[size]
           )}
           role="dialog"
@@ -69,9 +69,9 @@ export function Modal({
         >
           {/* Header */}
           {(title || showCloseButton) && (
-            <div className="flex items-center justify-between px-6 py-4 border-b border-stone-200">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-stone-200 dark:border-stone-700">
               {title && (
-                <h2 id="modal-title" className="text-lg font-semibold text-stone-900">
+                <h2 id="modal-title" className="text-lg font-semibold text-stone-900 dark:text-stone-100">
                   {title}
                 </h2>
               )}
@@ -124,7 +124,7 @@ export function ConfirmDialog({
 }: ConfirmDialogProps) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={title} size="sm">
-      <p className="text-stone-600 mb-6">{message}</p>
+      <p className="text-stone-600 dark:text-stone-400 mb-6">{message}</p>
       <div className="flex justify-end gap-3">
         <Button variant="secondary" onClick={onClose} disabled={isLoading}>
           {cancelText}
@@ -140,4 +140,3 @@ export function ConfirmDialog({
     </Modal>
   );
 }
-

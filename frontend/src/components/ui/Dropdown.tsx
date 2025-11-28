@@ -66,14 +66,14 @@ export function Dropdown({
   };
 
   const variants = {
-    default: 'bg-white border-stone-300 hover:border-olive-400',
-    filled: 'bg-stone-50 border-stone-200 hover:bg-stone-100 hover:border-stone-300',
+    default: 'bg-white dark:bg-stone-800 border-stone-300 dark:border-stone-600 hover:border-olive-400 dark:hover:border-olive-500',
+    filled: 'bg-stone-50 dark:bg-stone-800 border-stone-200 dark:border-stone-700 hover:bg-stone-100 dark:hover:bg-stone-700 hover:border-stone-300 dark:hover:border-stone-600',
   };
 
   return (
     <div className={cn('w-full', className)} ref={dropdownRef}>
       {label && (
-        <label className="block text-sm font-medium text-stone-700 mb-1">
+        <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">
           {label}
         </label>
       )}
@@ -91,11 +91,11 @@ export function Dropdown({
             'text-left text-sm font-medium',
             'transition-all duration-200',
             'focus:outline-none focus:ring-2 focus:ring-olive-500/20 focus:border-olive-500',
-            'disabled:bg-stone-100 disabled:cursor-not-allowed disabled:opacity-60',
+            'disabled:bg-stone-100 dark:disabled:bg-stone-900 disabled:cursor-not-allowed disabled:opacity-60',
             variants[variant],
             isOpen && 'ring-2 ring-olive-500/20 border-olive-500',
             error && 'border-brick-500 focus:ring-brick-500/20 focus:border-brick-500',
-            selectedOption ? 'text-stone-900' : 'text-stone-400'
+            selectedOption ? 'text-stone-900 dark:text-stone-100' : 'text-stone-400 dark:text-stone-500'
           )}
           aria-haspopup="listbox"
           aria-expanded={isOpen}
@@ -105,8 +105,8 @@ export function Dropdown({
           </span>
           <ChevronDown 
             className={cn(
-              'w-4 h-4 text-stone-400 transition-transform duration-200',
-              isOpen && 'rotate-180 text-olive-600'
+              'w-4 h-4 text-stone-400 dark:text-stone-500 transition-transform duration-200',
+              isOpen && 'rotate-180 text-olive-600 dark:text-olive-400'
             )} 
           />
         </button>
@@ -116,7 +116,7 @@ export function Dropdown({
           <div 
             className={cn(
               'absolute z-50 w-full mt-1',
-              'bg-white border border-stone-200 rounded-lg shadow-medium',
+              'bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-lg shadow-medium',
               'py-1 max-h-60 overflow-auto',
               'animate-fade-in'
             )}
@@ -136,16 +136,16 @@ export function Dropdown({
                     'text-left text-sm',
                     'transition-colors duration-150',
                     isSelected 
-                      ? 'bg-olive-50 text-olive-900 font-medium' 
-                      : 'text-stone-700 hover:bg-stone-50',
-                    'focus:outline-none focus:bg-olive-50'
+                      ? 'bg-olive-50 dark:bg-olive-900/30 text-olive-900 dark:text-olive-300 font-medium' 
+                      : 'text-stone-700 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-700',
+                    'focus:outline-none focus:bg-olive-50 dark:focus:bg-olive-900/30'
                   )}
                   role="option"
                   aria-selected={isSelected}
                 >
                   <span>{option.label}</span>
                   {isSelected && (
-                    <Check className="w-4 h-4 text-olive-600" />
+                    <Check className="w-4 h-4 text-olive-600 dark:text-olive-400" />
                   )}
                 </button>
               );
@@ -155,9 +155,8 @@ export function Dropdown({
       </div>
 
       {error && (
-        <p className="mt-1.5 text-sm text-brick-600">{error}</p>
+        <p className="mt-1.5 text-sm text-brick-600 dark:text-brick-400">{error}</p>
       )}
     </div>
   );
 }
-
