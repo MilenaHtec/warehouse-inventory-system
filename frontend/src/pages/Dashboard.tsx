@@ -62,10 +62,10 @@ export function Dashboard() {
           <CardHeader>
             <CardTitle>Inventory Value</CardTitle>
           </CardHeader>
-          <div className="text-3xl font-bold text-stone-900">
+          <div className="text-3xl font-bold text-stone-900 dark:text-stone-100">
             {formatCurrency(stats.total_value)}
           </div>
-          <p className="text-sm text-stone-500 mt-1">
+          <p className="text-sm text-stone-500 dark:text-stone-400 mt-1">
             Total value of all products in stock
           </p>
         </Card>
@@ -96,18 +96,18 @@ interface StatCardProps {
 
 function StatCard({ title, value, icon, color, alert }: StatCardProps) {
   const colors = {
-    olive: 'bg-olive-100 text-olive-600',
-    navy: 'bg-navy-100 text-navy-600',
-    ochre: 'bg-ochre-100 text-ochre-600',
-    brick: 'bg-brick-100 text-brick-600',
+    olive: 'bg-olive-100 dark:bg-olive-900/30 text-olive-600 dark:text-olive-400',
+    navy: 'bg-navy-100 dark:bg-navy-900/30 text-navy-600 dark:text-navy-400',
+    ochre: 'bg-ochre-100 dark:bg-ochre-900/30 text-ochre-600 dark:text-ochre-400',
+    brick: 'bg-brick-100 dark:bg-brick-900/30 text-brick-600 dark:text-brick-400',
   };
 
   return (
     <Card>
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-sm font-medium text-stone-500">{title}</p>
-          <p className="text-2xl font-bold text-stone-900 mt-1">{value}</p>
+          <p className="text-sm font-medium text-stone-500 dark:text-stone-400">{title}</p>
+          <p className="text-2xl font-bold text-stone-900 dark:text-stone-100 mt-1">{value}</p>
         </div>
         <div className={`p-2 rounded-lg ${colors[color]}`}>
           {icon}
@@ -126,7 +126,7 @@ function QuickAction({ to, label }: { to: string; label: string }) {
   return (
     <Link
       to={to}
-      className="p-3 bg-stone-50 rounded-lg text-sm font-medium text-stone-700 hover:bg-stone-100 transition-colors text-center"
+      className="p-3 bg-stone-50 dark:bg-stone-800 rounded-lg text-sm font-medium text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors text-center"
     >
       {label}
     </Link>

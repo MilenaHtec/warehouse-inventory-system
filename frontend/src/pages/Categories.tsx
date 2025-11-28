@@ -66,8 +66,8 @@ export function Categories() {
       {categories?.length === 0 ? (
         <EmptyState
           icon={
-            <div className="w-16 h-16 rounded-full bg-olive-100 flex items-center justify-center">
-              <FolderTree className="w-8 h-8 text-olive-600" />
+            <div className="w-16 h-16 rounded-full bg-olive-100 dark:bg-olive-900/30 flex items-center justify-center">
+              <FolderTree className="w-8 h-8 text-olive-600 dark:text-olive-400" />
             </div>
           }
           title="No categories yet"
@@ -85,9 +85,9 @@ export function Categories() {
             <Card key={category.id} className="hover:shadow-medium transition-shadow">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <h3 className="font-semibold text-stone-900">{category.name}</h3>
+                  <h3 className="font-semibold text-stone-900 dark:text-stone-100">{category.name}</h3>
                   {category.description && (
-                    <p className="mt-1 text-sm text-stone-500 line-clamp-2">
+                    <p className="mt-1 text-sm text-stone-500 dark:text-stone-400 line-clamp-2">
                       {category.description}
                     </p>
                   )}
@@ -95,7 +95,7 @@ export function Categories() {
                 <Badge variant="olive">{category.product_count} products</Badge>
               </div>
 
-              <div className="mt-4 pt-4 border-t border-stone-100 flex items-center justify-between">
+              <div className="mt-4 pt-4 border-t border-stone-100 dark:border-stone-700 flex items-center justify-between">
                 <span className="text-xs text-stone-400">
                   Created {formatDate(category.created_at)}
                 </span>

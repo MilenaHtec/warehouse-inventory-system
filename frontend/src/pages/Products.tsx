@@ -187,7 +187,7 @@ export function Products() {
                   setSearch(e.target.value);
                   setPage(1);
                 }}
-                className="w-full pl-10 pr-4 py-2.5 bg-stone-50 border border-stone-200 rounded-lg text-sm font-medium text-stone-900 placeholder:text-stone-400 placeholder:font-normal hover:bg-stone-100 hover:border-stone-300 focus:outline-none focus:ring-2 focus:ring-olive-500/20 focus:border-olive-500 focus:bg-white transition-all duration-200"
+                className="w-full pl-10 pr-4 py-2.5 bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-lg text-sm font-medium text-stone-900 dark:text-stone-100 placeholder:text-stone-400 dark:placeholder:text-stone-500 placeholder:font-normal hover:bg-stone-100 dark:hover:bg-stone-700 hover:border-stone-300 dark:hover:border-stone-600 focus:outline-none focus:ring-2 focus:ring-olive-500/20 focus:border-olive-500 focus:bg-white dark:focus:bg-stone-800 transition-all duration-200"
               />
             </div>
           </div>
@@ -221,8 +221,8 @@ export function Products() {
       {products.length === 0 ? (
         <EmptyState
           icon={
-            <div className="w-16 h-16 rounded-full bg-olive-100 flex items-center justify-center">
-              <Package className="w-8 h-8 text-olive-600" />
+            <div className="w-16 h-16 rounded-full bg-olive-100 dark:bg-olive-900/30 flex items-center justify-center">
+              <Package className="w-8 h-8 text-olive-600 dark:text-olive-400" />
             </div>
           }
           title={search || categoryId ? "No products found" : "No products yet"}
@@ -261,15 +261,15 @@ export function Products() {
                   {products.map((product) => (
                     <tr key={product.id}>
                       <td>
-                        <div className="font-medium text-stone-900">
+                        <div className="font-medium text-stone-900 dark:text-stone-100">
                           {product.name}
                         </div>
-                        <div className="text-xs text-stone-400">
+                        <div className="text-xs text-stone-400 dark:text-stone-500">
                           Added {formatDate(product.created_at)}
                         </div>
                       </td>
                       <td>
-                        <code className="text-sm font-mono bg-stone-100 px-2 py-0.5 rounded">
+                        <code className="text-sm font-mono bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 px-2 py-0.5 rounded">
                           {product.product_code}
                         </code>
                       </td>
@@ -329,7 +329,7 @@ export function Products() {
           {/* Pagination */}
           {pagination && pagination.total_pages > 1 && (
             <div className="flex items-center justify-between mt-4">
-              <p className="text-sm text-stone-500">
+              <p className="text-sm text-stone-500 dark:text-stone-400">
                 Showing {(pagination.page - 1) * pagination.limit + 1} to{" "}
                 {Math.min(pagination.page * pagination.limit, pagination.total)}{" "}
                 of {pagination.total} products
@@ -343,7 +343,7 @@ export function Products() {
                 >
                   Previous
                 </Button>
-                <span className="text-sm text-stone-600 px-2">
+                <span className="text-sm text-stone-600 dark:text-stone-400 px-2">
                   Page {pagination.page} of {pagination.total_pages}
                 </span>
                 <Button
@@ -446,7 +446,9 @@ function ProductHistoryContent({
     return (
       <div className="text-center py-12">
         <History className="w-12 h-12 mx-auto text-stone-300 mb-3" />
-        <p className="text-stone-500">No inventory changes recorded yet.</p>
+        <p className="text-stone-500 dark:text-stone-400">
+          No inventory changes recorded yet.
+        </p>
         <p className="text-sm text-stone-400 mt-1">
           Current stock: {currentStock}
         </p>
@@ -457,7 +459,7 @@ function ProductHistoryContent({
   return (
     <div>
       {/* Current Stock Summary */}
-      <div className="mb-4 p-3 bg-olive-50 rounded-lg flex items-center justify-between">
+      <div className="mb-4 p-3 bg-olive-50 dark:bg-olive-900/20 rounded-lg flex items-center justify-between">
         <span className="text-sm font-medium text-stone-600">
           Current Stock
         </span>
@@ -479,7 +481,7 @@ function HistoryEntry({ entry }: { entry: InventoryHistoryWithProduct }) {
   const isDecrease = entry.change_type === "decrease";
 
   return (
-    <div className="flex items-start gap-3 p-3 bg-stone-50 rounded-lg">
+    <div className="flex items-start gap-3 p-3 bg-stone-50 dark:bg-stone-800 rounded-lg">
       <div
         className={cn(
           "p-1.5 rounded",
@@ -500,7 +502,7 @@ function HistoryEntry({ entry }: { entry: InventoryHistoryWithProduct }) {
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
-          <span className="font-medium text-stone-900 capitalize">
+          <span className="font-medium text-stone-900 dark:text-stone-100 capitalize">
             {entry.change_type}
           </span>
           <Badge
@@ -510,13 +512,15 @@ function HistoryEntry({ entry }: { entry: InventoryHistoryWithProduct }) {
             {entry.quantity_change}
           </Badge>
         </div>
-        <div className="text-sm text-stone-500">
+        <div className="text-sm text-stone-500 dark:text-stone-400">
           {entry.quantity_before} → {entry.quantity_after}
           {entry.reason && (
-            <span className="ml-2 text-stone-400">• {entry.reason}</span>
+            <span className="ml-2 text-stone-400 dark:text-stone-500">
+              • {entry.reason}
+            </span>
           )}
         </div>
-        <div className="text-xs text-stone-400 mt-1">
+        <div className="text-xs text-stone-400 dark:text-stone-500 mt-1">
           {formatDateTime(entry.created_at)}
         </div>
       </div>

@@ -35,36 +35,36 @@ export function Reports() {
       <div className="grid gap-6 md:grid-cols-3 mb-8">
         <Card>
           <div className="flex items-center gap-4">
-            <div className="p-3 rounded-lg bg-olive-100">
-              <Package className="w-6 h-6 text-olive-600" />
+            <div className="p-3 rounded-lg bg-olive-100 dark:bg-olive-900/30">
+              <Package className="w-6 h-6 text-olive-600 dark:text-olive-400" />
             </div>
             <div>
-              <p className="text-sm text-stone-500">Total Stock</p>
-              <p className="text-2xl font-bold text-stone-900">{formatNumber(totalStock)}</p>
+              <p className="text-sm text-stone-500 dark:text-stone-400">Total Stock</p>
+              <p className="text-2xl font-bold text-stone-900 dark:text-stone-100">{formatNumber(totalStock)}</p>
             </div>
           </div>
         </Card>
 
         <Card>
           <div className="flex items-center gap-4">
-            <div className="p-3 rounded-lg bg-ochre-100">
-              <BarChart3 className="w-6 h-6 text-ochre-600" />
+            <div className="p-3 rounded-lg bg-ochre-100 dark:bg-ochre-900/30">
+              <BarChart3 className="w-6 h-6 text-ochre-600 dark:text-ochre-400" />
             </div>
             <div>
-              <p className="text-sm text-stone-500">Total Value</p>
-              <p className="text-2xl font-bold text-stone-900">{formatCurrency(totalValue)}</p>
+              <p className="text-sm text-stone-500 dark:text-stone-400">Total Value</p>
+              <p className="text-2xl font-bold text-stone-900 dark:text-stone-100">{formatCurrency(totalValue)}</p>
             </div>
           </div>
         </Card>
 
         <Card>
           <div className="flex items-center gap-4">
-            <div className="p-3 rounded-lg bg-brick-100">
-              <AlertTriangle className="w-6 h-6 text-brick-600" />
+            <div className="p-3 rounded-lg bg-brick-100 dark:bg-brick-900/30">
+              <AlertTriangle className="w-6 h-6 text-brick-600 dark:text-brick-400" />
             </div>
             <div>
-              <p className="text-sm text-stone-500">Low Stock Items</p>
-              <p className="text-2xl font-bold text-stone-900">{lowStock?.length || 0}</p>
+              <p className="text-sm text-stone-500 dark:text-stone-400">Low Stock Items</p>
+              <p className="text-2xl font-bold text-stone-900 dark:text-stone-100">{lowStock?.length || 0}</p>
             </div>
           </div>
         </Card>
@@ -75,7 +75,7 @@ export function Reports() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <BarChart3 className="w-5 h-5 text-olive-600" />
+              <BarChart3 className="w-5 h-5 text-olive-600 dark:text-olive-400" />
               Stock by Category
             </CardTitle>
           </CardHeader>
@@ -96,23 +96,23 @@ export function Reports() {
                 return (
                   <div key={category.category_id}>
                     <div className="flex items-center justify-between mb-2">
-                      <span className="font-medium text-stone-900">{category.category_name}</span>
+                      <span className="font-medium text-stone-900 dark:text-stone-100">{category.category_name}</span>
                       <div className="text-right">
-                        <span className="text-sm font-medium text-stone-700">
+                        <span className="text-sm font-medium text-stone-700 dark:text-stone-300">
                           {formatNumber(category.total_stock)} units
                         </span>
-                        <span className="text-xs text-stone-400 ml-2">
+                        <span className="text-xs text-stone-400 dark:text-stone-500 ml-2">
                           ({category.total_products} products)
                         </span>
                       </div>
                     </div>
-                    <div className="w-full bg-stone-100 rounded-full h-3">
+                    <div className="w-full bg-stone-100 dark:bg-stone-700 rounded-full h-3">
                       <div
                         className="bg-olive-500 h-3 rounded-full transition-all duration-500"
                         style={{ width: `${percentage}%` }}
                       />
                     </div>
-                    <div className="flex items-center justify-between mt-1 text-xs text-stone-500">
+                    <div className="flex items-center justify-between mt-1 text-xs text-stone-500 dark:text-stone-400">
                       <span>{percentage}% of total</span>
                       <span>{formatCurrency(category.total_value)}</span>
                     </div>
@@ -127,7 +127,7 @@ export function Reports() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <AlertTriangle className="w-5 h-5 text-brick-600" />
+              <AlertTriangle className="w-5 h-5 text-brick-600 dark:text-brick-400" />
               Low Stock Alert
               {lowStock && lowStock.length > 0 && (
                 <Badge variant="error">{lowStock.length}</Badge>
@@ -138,8 +138,8 @@ export function Reports() {
           {lowStock?.length === 0 ? (
             <EmptyState
               icon={
-                <div className="w-12 h-12 rounded-full bg-success-50 flex items-center justify-center">
-                  <Package className="w-6 h-6 text-success-600" />
+                <div className="w-12 h-12 rounded-full bg-success-50 dark:bg-success-700/20 flex items-center justify-center">
+                  <Package className="w-6 h-6 text-success-600 dark:text-success-500" />
                 </div>
               }
               title="All stocked up!"
@@ -151,11 +151,11 @@ export function Reports() {
               {lowStock?.map((product) => (
                 <div
                   key={product.id}
-                  className="flex items-center justify-between p-3 bg-brick-50 rounded-lg border border-brick-100"
+                  className="flex items-center justify-between p-3 bg-brick-50 dark:bg-brick-900/20 rounded-lg border border-brick-100 dark:border-brick-800"
                 >
                   <div>
-                    <div className="font-medium text-stone-900">{product.name}</div>
-                    <div className="text-sm text-stone-500">
+                    <div className="font-medium text-stone-900 dark:text-stone-100">{product.name}</div>
+                    <div className="text-sm text-stone-500 dark:text-stone-400">
                       {product.product_code} • {product.category_name}
                     </div>
                   </div>
@@ -171,4 +171,3 @@ export function Reports() {
     </div>
   );
 }
-

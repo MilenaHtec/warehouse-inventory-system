@@ -92,7 +92,7 @@ export function Inventory() {
             <div>
               {/* Product Search */}
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 dark:text-stone-500" />
                 <input
                   type="text"
                   placeholder="Search for a product..."
@@ -106,21 +106,21 @@ export function Inventory() {
               {debouncedSearch && (
                 <div className="mt-4">
                   {isSearching ? (
-                    <p className="text-sm text-stone-500">Searching...</p>
+                    <p className="text-sm text-stone-500 dark:text-stone-400">Searching...</p>
                   ) : searchResults?.length === 0 ? (
-                    <p className="text-sm text-stone-500">No products found</p>
+                    <p className="text-sm text-stone-500 dark:text-stone-400">No products found</p>
                   ) : (
                     <div className="space-y-2">
                       {searchResults?.map((product) => (
                         <button
                           key={product.id}
                           onClick={() => handleSelectProduct(product)}
-                          className="w-full p-3 text-left bg-stone-50 rounded-lg hover:bg-stone-100 transition-colors"
+                          className="w-full p-3 text-left bg-stone-50 dark:bg-stone-800 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors"
                         >
                           <div className="flex items-center justify-between">
                             <div>
-                              <div className="font-medium text-stone-900">{product.name}</div>
-                              <div className="text-sm text-stone-500">
+                              <div className="font-medium text-stone-900 dark:text-stone-100">{product.name}</div>
+                              <div className="text-sm text-stone-500 dark:text-stone-400">
                                 {product.product_code} • {product.category_name}
                               </div>
                             </div>
@@ -136,8 +136,8 @@ export function Inventory() {
               )}
 
               {!searchQuery && (
-                <div className="mt-4 text-center text-sm text-stone-500">
-                  <Package className="w-12 h-12 mx-auto text-stone-300 mb-2" />
+                <div className="mt-4 text-center text-sm text-stone-500 dark:text-stone-400">
+                  <Package className="w-12 h-12 mx-auto text-stone-300 dark:text-stone-600 mb-2" />
                   Search for a product to update its stock
                 </div>
               )}
@@ -145,19 +145,19 @@ export function Inventory() {
           ) : (
             <div>
               {/* Selected Product */}
-              <div className="p-4 bg-olive-50 rounded-lg mb-4">
+              <div className="p-4 bg-olive-50 dark:bg-olive-900/20 rounded-lg mb-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="font-medium text-stone-900">{selectedProduct.name}</div>
-                    <div className="text-sm text-stone-500">
+                    <div className="font-medium text-stone-900 dark:text-stone-100">{selectedProduct.name}</div>
+                    <div className="text-sm text-stone-500 dark:text-stone-400">
                       {selectedProduct.product_code} • {selectedProduct.category_name}
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-2xl font-bold text-olive-700">
+                    <div className="text-2xl font-bold text-olive-700 dark:text-olive-400">
                       {selectedProduct.quantity}
                     </div>
-                    <div className="text-xs text-stone-500">Current Stock</div>
+                    <div className="text-xs text-stone-500 dark:text-stone-400">Current Stock</div>
                   </div>
                 </div>
               </div>
@@ -188,15 +188,15 @@ export function Inventory() {
                   <div className="flex items-center gap-2 mb-4">
                     <div className={cn(
                       'p-2 rounded-lg',
-                      operation === 'increase' ? 'bg-success-50' : 'bg-brick-50'
+                      operation === 'increase' ? 'bg-success-50 dark:bg-success-700/20' : 'bg-brick-50 dark:bg-brick-700/20'
                     )}>
                       {operation === 'increase' ? (
-                        <ArrowUp className="w-5 h-5 text-success-600" />
+                        <ArrowUp className="w-5 h-5 text-success-600 dark:text-success-500" />
                       ) : (
-                        <ArrowDown className="w-5 h-5 text-brick-600" />
+                        <ArrowDown className="w-5 h-5 text-brick-600 dark:text-brick-500" />
                       )}
                     </div>
-                    <span className="font-medium text-stone-900">
+                    <span className="font-medium text-stone-900 dark:text-stone-100">
                       {operation === 'increase' ? 'Increase' : 'Decrease'} Stock
                     </span>
                   </div>
@@ -268,7 +268,7 @@ export function Inventory() {
           </CardHeader>
 
           {isLoadingHistory ? (
-            <div className="text-center py-8 text-stone-500">Loading...</div>
+            <div className="text-center py-8 text-stone-500 dark:text-stone-400">Loading...</div>
           ) : history.length === 0 ? (
             <EmptyState
               title="No activity yet"
@@ -293,35 +293,34 @@ function HistoryEntry({ entry }: { entry: InventoryHistoryWithProduct }) {
   const isDecrease = entry.change_type === 'decrease';
 
   return (
-    <div className="flex items-start gap-3 p-3 bg-stone-50 rounded-lg">
+    <div className="flex items-start gap-3 p-3 bg-stone-50 dark:bg-stone-800 rounded-lg">
       <div className={cn(
         'p-1.5 rounded',
-        isIncrease ? 'bg-success-100' : isDecrease ? 'bg-brick-100' : 'bg-ochre-100'
+        isIncrease ? 'bg-success-100 dark:bg-success-700/20' : isDecrease ? 'bg-brick-100 dark:bg-brick-700/20' : 'bg-ochre-100 dark:bg-ochre-700/20'
       )}>
         {isIncrease ? (
-          <ArrowUp className="w-4 h-4 text-success-600" />
+          <ArrowUp className="w-4 h-4 text-success-600 dark:text-success-500" />
         ) : isDecrease ? (
-          <ArrowDown className="w-4 h-4 text-brick-600" />
+          <ArrowDown className="w-4 h-4 text-brick-600 dark:text-brick-500" />
         ) : (
-          <History className="w-4 h-4 text-ochre-600" />
+          <History className="w-4 h-4 text-ochre-600 dark:text-ochre-500" />
         )}
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
-          <span className="font-medium text-stone-900 truncate">{entry.product_name}</span>
+          <span className="font-medium text-stone-900 dark:text-stone-100 truncate">{entry.product_name}</span>
           <Badge variant={isIncrease ? 'success' : isDecrease ? 'error' : 'ochre'}>
             {entry.quantity_change > 0 ? '+' : ''}{entry.quantity_change}
           </Badge>
         </div>
-        <div className="text-sm text-stone-500">
+        <div className="text-sm text-stone-500 dark:text-stone-400">
           {entry.quantity_before} → {entry.quantity_after}
           {entry.reason && <span className="ml-2">• {entry.reason}</span>}
         </div>
-        <div className="text-xs text-stone-400 mt-1">
+        <div className="text-xs text-stone-400 dark:text-stone-500 mt-1">
           {formatDateTime(entry.created_at)}
         </div>
       </div>
     </div>
   );
 }
-
